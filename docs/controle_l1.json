@@ -1,0 +1,66 @@
+{
+  "structural_checks": "passed",
+  "ready_for_submission": false,
+  "documents": 36,
+  "pages_corpus": 108,
+  "pages_report": 14,
+  "columns": 20,
+  "families": {
+    "postes_informatiques": 25,
+    "peripheriques_informatiques": 11
+  },
+  "scanned_documents": [
+    "proc_impression_v1",
+    "proc_impression_v2"
+  ],
+  "test_roles": {
+    "normal": 30,
+    "ambigu": 3,
+    "contradictoire": 2,
+    "injection": 1
+  },
+  "human_validated": 0,
+  "blockers": [
+    "URL du dépôt GitHub absente ; dépôt distant à créer et accès enseignant à tester",
+    "Relecture humaine et droits à valider pour 36 documents ; verifie_par non renseigné"
+  ],
+  "sha256": {
+    "it01": "59b1e3088ab2e0198dbabc984db5a24d70422b6780670af739f5968d1806bf27",
+    "it02": "d21d9373b7192a9abd2e46b184de6ccff63a232f307186fa749828b7ccf9b9be",
+    "it03": "2bdc90d0d37f06d1b6593e31d002a8c8a9259e4eb744931c3ee890a9518d619a",
+    "it04": "68805451084de6eed2de11328802d9fabf69fac2876e6e46529a7a73f2dc64bd",
+    "it05": "86353b9aebbbaa80e1b509d9ba38608ad0904fba73304136e851489f36346a3f",
+    "it06": "e4dfa40acd3f8b641cf4859c211487c3f3e1449c6bdcdfc18c89899518c65277",
+    "it07": "76fa8cabaa72a26a53c8b2f24a58d30c8d60cff2d7e0a6fe4ae1b9759717f9da",
+    "it08": "6d0f4b19763e42e7c7008532eb7a504e8631575644c1136687369db3976a0e91",
+    "it10": "51d53a87f8e5bc2d7ef55b86053787ff61bde007269b5c6cbe28d18b1394ba3b",
+    "it11": "dc511a82d9da2ffb64483891f92cba849df1c90d7ddcc0be0caa99eb46a29396",
+    "it12": "372301ef984c8a398ab738630984d3bc758d17abc5bc1383a485c04c13c0bcbd",
+    "it13": "e49ce1f6810f488d7a737b8d77ce5b22b055bcf49106ed879efde45e5fe17fad",
+    "it14": "6d8f7ab9e76fae2c27a02aa698721566644ccf4faccb39de49da900a36f21e92",
+    "it15": "8758116d4cf7e722f409e3d9b7ae145d7d8fec49aafec78825c8ec00d7ef658f",
+    "it16": "ec9aafae3b9662c253ba2ea83c9744c830761133d14653ddf75b90fee8d65c5c",
+    "it17": "21f27a6cd2c1071f3a567d7aaaafc1cac7a365f915b0861d9bdfe82aab3c69cc",
+    "it18": "3186f080897a67e1c7a7299ab85e6a3546963c2c09730ef1368f34e200175a26",
+    "it19": "03557b3d389831dfffe75de6ee903cdb07a2f4dd1f282646aab71d7f9371034a",
+    "it20": "f128e4366b5a79ad831f17c4f462e37154de709703ab8eb4a43cd35f755f8c85",
+    "it21": "df829322ccf816a4018e8429b30c0c8134b5448e5fa9e07f939da3f7ae84ee0c",
+    "it22": "6c67eb52e2d6fa408b28350a04a38f0757cc0567e917730a490663a048d07be3",
+    "it23": "2855d298caec04891d679976d124dab1ce2a3d202695346f4a4047944561b5aa",
+    "it24": "4550bdaf7682dc17ae506ea033e0574f29ee040701a9eb8e19831ef44cf32112",
+    "it25": "790a1aab430e1dbc300d22217fdaa9a87006e971ac3bc4d624265d8cc26fa2ca",
+    "it26": "b6f10c1d1501d67267e1b0f82a5c6ee34b716c2aa55527cbc22aeba05036fe79",
+    "it27": "3a76f98d6ba275f0996de22a0d9c4535d8bf8adb96f7421dcafad4d4ce73925e",
+    "it28": "1e5ce962e07062992c4c9ce80f98a3fd16eb1dd42c922aa7dd81043152d4a2bf",
+    "it29": "faa479935ce62bab63c57e3bdcea2e0d8c1d73b8021f8057584545c1b9cf8a71",
+    "it30": "7f4d0ac69ecaf2caaf70edb6584f43d1c0ba9806bd90cbf7cfc076e1286cd704",
+    "it09": "a3f1b7b8ae3e19c6f78403dba7484f80128f15c195b8f9b9b2592fad738124fe",
+    "manuel_postes": "6c0f12a6c95d975c5a86eebb4e6395d3df48f63fc11a3d51a16667ae30a6edff",
+    "manuel_peripheriques": "f9cd29cbeff1fb402fd3d73dff5739201fe866e038bb66198be2a077f2522c4f",
+    "sec_donnees": "3f29214e5b8be11947af3ee6dbd37c67f9f87dbb12df75c04774a7d8c3a40291",
+    "proc_impression_v1": "e5811b853d45aa85db3a9c0972126ecbcee300cf159e6af5ed1f01d8a48f5f86",
+    "proc_impression_v2": "a78b98f2702631cfae8d5871ebec90cba6632473f9a393cb9510892d9ddee4fe",
+    "note_service_test": "ce1fb9a4243c08e980505763a49acccbaf57d3d2f5f96a24c014741a082c6bb5"
+  },
+  "visual_review": "122 pages rendues et inspectées ; retouches éditoriales et schéma contrôlés séparément"
+}

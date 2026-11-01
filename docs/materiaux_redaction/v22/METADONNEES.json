@@ -1,0 +1,2512 @@
+[
+  {
+    "id": "IT01",
+    "title": "Wi-Fi connecté, mais accès Internet indisponible",
+    "category": "Réseau",
+    "tags": [
+      "Wi-Fi",
+      "connectivité limitée",
+      "sans Internet",
+      "passerelle"
+    ],
+    "scope": "PC Windows 11 associé à un réseau sans fil.",
+    "signal": "Le réseau Wi-Fi est rejoint, alors que les services Internet restent inaccessibles.",
+    "fact": "Microsoft distingue la liaison au réseau local de l’accès Internet. L’indication « sans Internet » ne signifie donc pas que l’association radio a échoué. Plusieurs causes restent possibles en amont du poste.",
+    "boundary": "Cette fiche sert au tri initial. Une adresse APIPA identifiée relève de IT02 ; un échec de résolution d’un nom relève de IT03. Un défaut limité à Firefox demande IT05.",
+    "evidence": [
+      [
+        "Portée du défaut",
+        "Un autre appareil sur le même Wi-Fi accède-t-il à Internet ?",
+        "Comparer le poste et l’accès partagé."
+      ],
+      [
+        "État Windows",
+        "Quel réseau est connecté et quelle indication est affichée ?",
+        "Éviter de tester un autre point d’accès par erreur."
+      ],
+      [
+        "Configuration TCP/IP",
+        "Que donne ipconfig /all sur la carte utilisée ?",
+        "Relever adresse, passerelle et DNS [SRC-MS-ipconfig]."
+      ],
+      [
+        "Applications",
+        "Une seule application ou tous les usages échouent-ils ?",
+        "Choisir ensuite le niveau de dépannage pertinent."
+      ]
+    ],
+    "logic": "Commencer par l’étendue du défaut, puis regarder la configuration. Si tous les appareils sont touchés, ne pas appliquer en série des réinitialisations à chaque ordinateur. Si un seul logiciel échoue, conserver la configuration du réseau et examiner ce logiciel.",
+    "steps": [
+      [
+        "Rétablir la connexion locale",
+        "Désactiver puis réactiver le Wi-Fi et rejoindre le réseau attendu, selon l’aide Microsoft."
+      ],
+      [
+        "Cibler le composant",
+        "Utiliser l’utilitaire Réseau et Internet de Windows ; conserver les erreurs qu’il indique."
+      ],
+      [
+        "Orienter la correction",
+        "Traiter séparément une attribution d’adresse absente, une résolution DNS défaillante ou un accès partagé indisponible."
+      ]
+    ],
+    "validation": "Ouvrir un service habituel autorisé et comparer avec le second appareil. Consigner l’accès effectivement retrouvé, sans attribuer une cause sur la seule disparition de l’icône.",
+    "limit": "La réinitialisation du réseau est une étape de dernier recours dans la documentation, pas la première réponse à toute déconnexion.",
+    "queries": [
+      "Je suis connecté au Wi-Fi mais Internet ne marche pas.",
+      "Comment distinguer une liaison Wi-Fi établie et une panne Internet ?"
+    ],
+    "neighbors": [
+      "IT02",
+      "IT03",
+      "IT05"
+    ],
+    "rules": [
+      "Si tous les appareils échouent, examiner le routeur et la liaison Internet.",
+      "Si le poste affiche 169.254 en IPv4 automatique, suivre IT02 ; si seuls les noms échouent, suivre IT03."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "en-us",
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT01_wi_fi_connecte_mais_acces_internet_indisponible.pdf"
+  },
+  {
+    "id": "IT02",
+    "title": "Adresse 169.254 : examiner l’attribution DHCP",
+    "category": "Réseau",
+    "tags": [
+      "APIPA",
+      "169.254",
+      "DHCP",
+      "adresse automatique"
+    ],
+    "scope": "Interface IPv4 Windows configurée pour obtenir une adresse automatiquement.",
+    "signal": "Une adresse du type 169.254.x.x apparaît sur la carte réseau concernée.",
+    "fact": "Microsoft décrit APIPA comme l’attribution d’une adresse privée automatique lorsque l’ordinateur n’a pas accès à un serveur DHCP. Une adresse de cette plage doit être interprétée avec la configuration réelle de l’interface.",
+    "boundary": "Le signal distinctif est l’adressage, et non un mot de passe Wi-Fi refusé. La fiche ne traite pas une adresse statique volontaire ni la résolution DNS d’un poste déjà correctement configuré.",
+    "evidence": [
+      [
+        "Carte examinée",
+        "Le relevé concerne-t-il la carte réellement connectée ?",
+        "Écarter une interface virtuelle ou inutilisée."
+      ],
+      [
+        "Mode d’adressage",
+        "DHCP est-il activé dans ipconfig /all ?",
+        "Établir si une attribution dynamique est attendue [SRC-MS-ipconfig]."
+      ],
+      [
+        "Attribution attendue",
+        "Quel plan d’adressage l’administrateur prévoit-il ?",
+        "Comparer à une référence connue, sans inventer une IP."
+      ],
+      [
+        "Autres postes",
+        "Les voisins reçoivent-ils une configuration dynamique ?",
+        "Évaluer si le défaut concerne un seul client."
+      ]
+    ],
+    "logic": "Transmettre le relevé à l’administrateur en précisant la carte, le réseau et le mode DHCP. Un renouvellement a du sens pour une interface dynamique ; attribuer une adresse au hasard masque le symptôme sans établir que le chemin vers le serveur est rétabli.",
+    "steps": [
+      [
+        "Vérifier le réseau d’accueil",
+        "Confirmer que le poste rejoint le bon réseau et qu’un service DHCP y est prévu."
+      ],
+      [
+        "Renouveler si approprié",
+        "Ipconfig /renew renouvelle une configuration DHCP ; cette option concerne les interfaces automatiques [SRC-MS-ipconfig]."
+      ],
+      [
+        "Faire examiner l’attribution",
+        "Si le même état persiste, faire contrôler le service DHCP et son accès par le poste."
+      ]
+    ],
+    "validation": "Après correction, relever la configuration réellement attribuée et vérifier qu’elle correspond au réseau prévu. Tester ensuite le service demandé : obtenir une adresse ne démontre pas, seul, que toutes les applications fonctionnent.",
+    "limit": "Ne pas forcer une adresse d’un autre poste : cette fiche ne fournit aucun plan IP propre à votre établissement.",
+    "queries": [
+      "Pourquoi mon PC reçoit-il une adresse 169.254 ?",
+      "Le renouvellement DHCP laisse une adresse APIPA, que faut-il relever ?"
+    ],
+    "neighbors": [
+      "IT01",
+      "IT03",
+      "IT04"
+    ],
+    "rules": [
+      "Si IPv4 est automatique et commence par 169.254, examiner la liaison au serveur DHCP puis effectuer l’étape 2.",
+      "Si la configuration est statique, faire vérifier le plan IP par le support avant toute modification."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "en-us",
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT02_adresse_169_254_examiner_lattribution_dhcp.pdf"
+  },
+  {
+    "id": "IT03",
+    "title": "Un nom ne se résout pas : diagnostic DNS",
+    "category": "Réseau",
+    "tags": [
+      "DNS",
+      "nslookup",
+      "nom introuvable",
+      "résolution"
+    ],
+    "scope": "Client Windows ; méthode Microsoft de diagnostic DNS, avec outils disponibles sous Windows 11.",
+    "signal": "Une ressource désignée par son nom reste introuvable ; le réseau doit être vérifié avant de conclure.",
+    "fact": "Microsoft propose de contrôler la configuration IP puis d’interroger le serveur DNS avec nslookup. Cet outil n’utilise pas le cache DNS du client. Un ping non répondu peut aussi refléter un filtrage ICMP.",
+    "boundary": "Une alerte de certificat suppose une autre analyse que l’échec de recherche d’un nom. Ne pas transformer tous les messages du navigateur en panne DNS.",
+    "evidence": [
+      [
+        "Configuration",
+        "Quels serveurs DNS figurent dans ipconfig /all ?",
+        "Vérifier les adresses prévues pour ce réseau."
+      ],
+      [
+        "Nom précis",
+        "Le nom complet échoue-t-il, ou seulement le nom court ?",
+        "Documenter le suffixe et l’orthographe."
+      ],
+      [
+        "Requête directe",
+        "Quelle réponse renvoie nslookup pour le nom autorisé ?",
+        "Distinguer absence de réponse et réponse négative [SRC-MS-nslookup]."
+      ],
+      [
+        "Cache local",
+        "Le cache contient-il une réponse négative pour ce nom ?",
+        "Examiner ipconfig /displaydns [SRC-MS-ipconfig]."
+      ]
+    ],
+    "logic": "Conserver le nom testé et le message exact. Une réponse négative et un délai dépassé ne décrivent pas le même résultat. Si seul le nom court échoue, présenter cette différence au support plutôt que modifier immédiatement les serveurs DNS du poste.",
+    "steps": [
+      [
+        "Corriger la référence",
+        "Vérifier le nom demandé et la configuration DNS attendue sur ce réseau."
+      ],
+      [
+        "Traiter le cache si confirmé",
+        "La documentation conseille ipconfig /flushdns en présence d’une réponse négative mise en cache."
+      ],
+      [
+        "Escalader avec les résultats",
+        "Si la résolution reste impossible, faire contrôler le serveur DNS avec les requêtes et réponses conservées."
+      ]
+    ],
+    "validation": "Répéter la requête sur le même nom, puis ouvrir la ressource correspondante. Une réponse DNS correcte ne garantit pas que le service applicatif derrière cette adresse est disponible.",
+    "limit": "Ne pas remplacer un DNS d’organisation par un DNS public sans validation : les noms internes ont leur propre contexte.",
+    "queries": [
+      "nslookup ne trouve pas mon serveur, comment analyser la réponse ?",
+      "Le nom court échoue mais le nom complet fonctionne."
+    ],
+    "neighbors": [
+      "IT01",
+      "IT02",
+      "IT08"
+    ],
+    "rules": [
+      "Si nslookup échoue avec une adresse réseau cohérente, relever le nom et la réponse puis suivre les étapes DNS.",
+      "Si le poste reçoit 169.254 en mode automatique, traiter IT02 avant ce cas."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "en-us",
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT03_un_nom_ne_se_resout_pas_diagnostic_dns.pdf"
+  },
+  {
+    "id": "IT04",
+    "title": "Ethernet sans connexion : câble et port",
+    "category": "Réseau",
+    "tags": [
+      "Ethernet",
+      "RJ45",
+      "liaison filaire",
+      "câble réseau"
+    ],
+    "scope": "PC Windows 11 relié à un routeur ou à un réseau Ethernet autorisé.",
+    "signal": "La connexion filaire est absente ou ne permet pas l’accès alors que le câble est branché.",
+    "fact": "Microsoft recommande d’examiner les deux extrémités du câble, le port utilisé et un câble de remplacement. La comparaison avec un autre appareil aide à localiser le défaut avant une action sur le pilote.",
+    "boundary": "La technologie est filaire. Les conseils sur le canal radio, la portée Wi-Fi ou le mot de passe du point d’accès n’apportent pas de réponse à cette vérification de liaison Ethernet.",
+    "evidence": [
+      [
+        "Branchement",
+        "Le câble va-t-il vers le port réseau attendu aux deux extrémités ?",
+        "Identifier précisément le trajet filaire."
+      ],
+      [
+        "Substitution",
+        "Un autre câble connu fonctionnel change-t-il le résultat ?",
+        "Ne faire varier qu’un élément à la fois."
+      ],
+      [
+        "Comparaison",
+        "Un second poste autorisé fonctionne-t-il sur cette liaison ?",
+        "Séparer poste et infrastructure."
+      ],
+      [
+        "Chronologie",
+        "Le défaut a-t-il commencé après un changement de pilote ?",
+        "Réserver la piste logicielle à un contexte documenté."
+      ]
+    ],
+    "logic": "Noter câble, port et ordinateur utilisés pour chaque comparaison. Changer simultanément de poste, de câble et de réseau rendrait le résultat ambigu. La preuve recherchée est une différence reproductible liée à un élément identifié.",
+    "steps": [
+      [
+        "Contrôler le raccordement",
+        "Rebrancher correctement et tester un autre câble si disponible."
+      ],
+      [
+        "Lancer le diagnostic Windows",
+        "Utiliser l’utilitaire Réseau et Internet pour compléter le constat matériel."
+      ],
+      [
+        "Préparer un éventuel pilote",
+        "Avant une désinstallation demandée par le support, disposer d’un pilote de secours adapté au modèle du PC."
+      ]
+    ],
+    "validation": "Conserver le câble ou le port qui permet la connexion et vérifier l’accès au service nécessaire. Si la liaison existe mais que les noms échouent, poursuivre dans IT03.",
+    "limit": "Une réinitialisation réseau modifie les adaptateurs et leurs réglages ; Microsoft la place en dernier recours.",
+    "queries": [
+      "Mon PC ne se connecte pas avec le câble Ethernet.",
+      "Comment vérifier si le câble RJ45 est en cause ?"
+    ],
+    "neighbors": [
+      "IT01",
+      "IT02",
+      "IT03"
+    ],
+    "rules": [
+      "Si un autre câble autorisé rétablit la liaison sur le même port, remplacer le câble défaillant.",
+      "Si la liaison est présente mais les noms échouent, poursuivre avec IT03."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT04_ethernet_sans_connexion_cable_et_port.pdf"
+  },
+  {
+    "id": "IT05",
+    "title": "Firefox seul ne navigue plus : configuration proxy",
+    "category": "Réseau",
+    "tags": [
+      "proxy Firefox",
+      "autres navigateurs fonctionnent",
+      "connexion refusée"
+    ],
+    "scope": "Firefox de bureau, poste où un autre navigateur accède aux mêmes sites.",
+    "signal": "Firefox n’ouvre pas les sites alors qu’un autre navigateur fonctionne sur le même ordinateur.",
+    "fact": "Mozilla explique qu’un proxy indisponible peut empêcher Firefox de charger les pages. La documentation demande de vérifier ses paramètres de connexion et, lorsqu’un proxy est nécessaire, de les comparer à ceux d’un navigateur fonctionnel.",
+    "boundary": "L’accès général du PC est ici un témoin de comparaison. Une panne affectant tous les appareils du réseau demande IT01 ; une alerte TLS affichée demande IT07 ou IT08.",
+    "evidence": [
+      [
+        "Comparaison",
+        "Le même site fonctionne-t-il réellement dans un autre navigateur ?",
+        "Tester la même destination au même moment."
+      ],
+      [
+        "Proxy attendu",
+        "L’établissement impose-t-il un proxy ou une configuration automatique ?",
+        "Demander la valeur de référence au support."
+      ],
+      [
+        "Réglage Firefox",
+        "Quel mode de proxy est actuellement sélectionné ?",
+        "Comparer sans exposer de secret."
+      ],
+      [
+        "Évolution",
+        "Le réglage revient-il après un redémarrage du navigateur ?",
+        "Distinguer choix local et configuration réappliquée."
+      ]
+    ],
+    "logic": "Photographier ou relever seulement le mode et l’adresse nécessaires au support, en masquant les informations privées. Le fait qu’un autre navigateur fonctionne réduit le champ de recherche, mais ne prouve pas que le proxy est l’unique cause possible.",
+    "steps": [
+      [
+        "Ouvrir les réglages de connexion",
+        "Ouvrir les Paramètres de Firefox et rechercher les réglages du proxy. Selon la version, la page officielle française les situe dans Paramètres réseau ou dans les paramètres avancés de connexion. Ouvrir Paramètres de connexion."
+      ],
+      [
+        "Appliquer le mode autorisé",
+        "Sélectionner l’absence de proxy seulement si aucun proxy n’est requis ; sinon utiliser la configuration validée."
+      ],
+      [
+        "Tester une destination identique",
+        "Retenter la page qui échouait sans modifier simultanément les paramètres DNS du système."
+      ]
+    ],
+    "validation": "Comparer le résultat Firefox avec le navigateur témoin et conserver le réglage qui a été corrigé. Si l’erreur demeure, transmettre le message et la configuration attendue.",
+    "limit": "Ne pas désactiver un proxy d’organisation pour contourner son contrôle d’accès.",
+    "queries": [
+      "Internet marche dans Edge mais pas dans Firefox.",
+      "Où chercher une mauvaise configuration de proxy Firefox ?"
+    ],
+    "neighbors": [
+      "IT01",
+      "IT03",
+      "IT08"
+    ],
+    "rules": [
+      "Si les mêmes sites fonctionnent dans un autre navigateur, vérifier le proxy Firefox aux étapes 1 et 2.",
+      "Si tous les navigateurs échouent, revenir au diagnostic réseau IT01."
+    ],
+    "environment": {
+      "product": "Firefox de bureau",
+      "product_version": null,
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT05_firefox_seul_ne_navigue_plus_configuration_proxy.pdf"
+  },
+  {
+    "id": "IT06",
+    "title": "Wi-Fi instable selon la pièce : portée et interférences",
+    "category": "Réseau",
+    "tags": [
+      "signal faible",
+      "interférences",
+      "portée",
+      "canal Wi-Fi"
+    ],
+    "scope": "Réseau sans fil dont les performances changent selon l’emplacement.",
+    "signal": "Le service fonctionne près du point d’accès, puis devient lent ou instable à un autre endroit.",
+    "fact": "Microsoft relie la qualité radio à la distance, aux obstacles et à la congestion des canaux. Le fabricant recommande des mesures à plusieurs endroits avant et après modification, plutôt qu’un choix de canal non observé.",
+    "boundary": "Le critère est la variation spatiale du signal. Une connexion stable sans Internet, un bail DHCP absent ou une erreur DNS unique relèvent d’autres fiches.",
+    "evidence": [
+      [
+        "Emplacement",
+        "À quels endroits les essais ont-ils été effectués ?",
+        "Reproduire le même parcours."
+      ],
+      [
+        "Bande",
+        "Quelle bande et quel réseau sont utilisés à chaque essai ?",
+        "Éviter une comparaison entre connexions différentes."
+      ],
+      [
+        "Obstacles",
+        "Quels murs ou éléments métalliques séparent le poste du point d’accès ?",
+        "Documenter l’environnement radio."
+      ],
+      [
+        "Mesure",
+        "Le même test a-t-il été répété dans les mêmes conditions ?",
+        "Comparer des observations, sans inventer de débit."
+      ]
+    ],
+    "logic": "Établir un petit plan des lieux et nommer les points de test. Répéter l’essai après un déplacement du point d’accès ou du poste. Un résultat isolé n’est pas suffisant pour promettre qu’un changement de bande résoudra tous les usages.",
+    "steps": [
+      [
+        "Améliorer la position",
+        "Rapprocher le poste ou déplacer le point d’accès pour limiter les obstacles, si cela est possible."
+      ],
+      [
+        "Examiner les canaux",
+        "Analyser les réseaux voisins avant d’adapter le canal dans l’interface autorisée du routeur."
+      ],
+      [
+        "Vérifier la compatibilité",
+        "Choisir une bande prise en charge par le routeur et le poste, en tenant compte de la portée recherchée."
+      ]
+    ],
+    "validation": "Consigner les lieux, les bandes et les résultats réellement mesurés. La correction est étayée si la zone problématique retrouve le niveau nécessaire à l’usage défini.",
+    "limit": "Aucun débit, canal optimal ou rayon de couverture propre à votre bâtiment n’est garanti par cette fiche.",
+    "queries": [
+      "Le Wi-Fi marche près du routeur mais pas dans ma chambre.",
+      "Comment comparer la couverture Wi-Fi entre plusieurs pièces ?"
+    ],
+    "neighbors": [
+      "IT01",
+      "IT02",
+      "IT04"
+    ],
+    "rules": [
+      "Si le défaut varie selon la pièce, comparer les mêmes usages près et loin du point d’accès.",
+      "Si tous les appareils échouent même à proximité, suivre IT01 plutôt que conclure à une portée insuffisante."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT06_wi_fi_instable_selon_la_piece_portee_et_interferences.pdf"
+  },
+  {
+    "id": "IT07",
+    "title": "Alerte HTTPS après dérèglement de l’horloge",
+    "category": "Navigateur",
+    "tags": [
+      "horloge incorrecte",
+      "certificat pas encore valide",
+      "fuseau horaire"
+    ],
+    "scope": "Firefox de bureau ; date, heure ou fuseau du système incohérents.",
+    "signal": "Une page HTTPS signale une erreur de validité temporelle et l’heure du poste paraît incorrecte.",
+    "fact": "Mozilla indique qu’une date, une heure ou un fuseau erronés peuvent invalider la vérification d’un certificat. Les codes de certificat expiré ou pas encore valide doivent être rapprochés de l’horloge réelle du système.",
+    "boundary": "Cette fiche concerne la dimension temporelle. Une autorité inconnue ou une interception HTTPS relève de IT08. Corriger l’heure ne renouvelle pas le certificat expiré d’un serveur.",
+    "evidence": [
+      [
+        "Temps système",
+        "La date et l’heure correspondent-elles à une référence fiable ?",
+        "Établir le décalage avant correction."
+      ],
+      [
+        "Fuseau",
+        "Le fuseau sélectionné correspond-il au lieu du poste ?",
+        "Ne pas se limiter au nombre affiché par l’horloge."
+      ],
+      [
+        "Message",
+        "Quel code figure dans les détails de l’alerte ?",
+        "Identifier le motif temporel exact."
+      ],
+      [
+        "Étendue",
+        "Un seul site ou plusieurs sites sont-ils concernés ?",
+        "Préparer le choix entre poste et site distant."
+      ]
+    ],
+    "logic": "Relever l’heure erronée puis la référence utilisée pour la corriger. Si l’alerte persiste avec une horloge juste, changer de piste. Le dossier doit permettre de savoir si la modification temporelle a réellement changé le comportement du même site.",
+    "steps": [
+      [
+        "Corriger le temps",
+        "Ouvrir les paramètres de date et d’heure du système et vérifier le fuseau."
+      ],
+      [
+        "Synchroniser",
+        "Utiliser la synchronisation de l’heure lorsqu’elle est disponible ; sinon appliquer un réglage correct selon les droits du poste."
+      ],
+      [
+        "Recharger la page",
+        "Revenir à la même adresse HTTPS et examiner de nouveau les détails de certificat si nécessaire."
+      ]
+    ],
+    "validation": "Vérifier la cohérence de l’heure puis l’accès HTTPS. Si le certificat du site demeure expiré, transmettre le code au responsable du site plutôt que modifier encore la date.",
+    "limit": "Ne pas reculer volontairement l’horloge pour faire accepter un certificat périmé.",
+    "queries": [
+      "Firefox indique que mon horloge est incorrecte.",
+      "Un certificat pas encore valide peut-il venir de la date du PC ?"
+    ],
+    "neighbors": [
+      "IT08",
+      "IT03",
+      "IT09"
+    ],
+    "rules": [
+      "Si la date, l’heure ou le fuseau sont incohérents, les corriger avant de retester le même site.",
+      "Si l’horloge est juste et que l’autorité du certificat est inconnue, suivre IT08."
+    ],
+    "environment": {
+      "product": "Firefox de bureau",
+      "product_version": null,
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT07_alerte_https_apres_dereglement_de_lhorloge.pdf"
+  },
+  {
+    "id": "IT08",
+    "title": "Certificat non reconnu : autorité ou interception HTTPS",
+    "category": "Navigateur",
+    "tags": [
+      "SEC_ERROR_UNKNOWN_ISSUER",
+      "MOZILLA_PKIX_ERROR_MITM_DETECTED",
+      "certificat auto-signé"
+    ],
+    "scope": "Firefox avec avertissement de validation du certificat, horloge déjà vérifiée.",
+    "signal": "Le navigateur refuse une connexion chiffrée avec un code d’autorité inconnue ou d’interception.",
+    "fact": "Mozilla distingue une autorité non reconnue, un certificat auto-signé et des logiciels ou équipements interceptant HTTPS. L’extension du défaut à plusieurs sites constitue un indice à examiner ; elle ne démontre pas à elle seule une attaque.",
+    "boundary": "Le nom du serveur est connu et une alerte TLS s’affiche. Ce cas diffère d’un nom DNS introuvable. Une incohérence de date se traite d’abord dans IT07.",
+    "evidence": [
+      [
+        "Code exact",
+        "Quel code apparaît dans les détails avancés ?",
+        "Distinguer les catégories d’alerte."
+      ],
+      [
+        "Sites concernés",
+        "L’échec touche-t-il un seul domaine ou plusieurs domaines habituels ?",
+        "Caractériser le périmètre sans contourner la protection."
+      ],
+      [
+        "Environnement",
+        "Le poste utilise-t-il une inspection HTTPS administrée ?",
+        "Demander au service informatique ce qui est prévu."
+      ],
+      [
+        "Changement récent",
+        "Un logiciel de sécurité ou le réseau a-t-il changé ?",
+        "Préparer une vérification ciblée."
+      ]
+    ],
+    "logic": "Pour un poste géré, transmettre code, domaine et contexte au support. Pour un seul site, prévenir son administrateur. Le contrôle doit établir l’origine du certificat présenté avant de proposer une modification de confiance.",
+    "steps": [
+      [
+        "Lire les détails",
+        "Ouvrir la partie avancée pour noter le code et les informations utiles du certificat."
+      ],
+      [
+        "Faire vérifier la confiance",
+        "Demander au responsable du réseau ou du site de contrôler la chaîne de certificats et l’inspection éventuelle."
+      ],
+      [
+        "Corriger la cause identifiée",
+        "Appliquer la correction validée côté serveur ou poste, puis retenter sans exception improvisée."
+      ]
+    ],
+    "validation": "La validation attendue est une connexion avec certificat accepté normalement. Conserver le diagnostic établi ; ne pas présenter l’absence d’alerte après contournement comme une preuve de sécurité.",
+    "limit": "Ne pas ajouter d’exception ni arrêter l’antivirus pour masquer cette erreur.",
+    "queries": [
+      "Que signifie SEC_ERROR_UNKNOWN_ISSUER dans Firefox ?",
+      "Plusieurs sites affichent une erreur MITM_DETECTED."
+    ],
+    "neighbors": [
+      "IT07",
+      "IT03",
+      "IT05"
+    ],
+    "rules": [
+      "Si l’horloge est fausse, commencer par IT07.",
+      "Si elle est correcte, relever le code TLS et comparer un site avec plusieurs sites avant de contacter le responsable concerné."
+    ],
+    "environment": {
+      "product": "Firefox de bureau",
+      "product_version": null,
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT08_certificat_non_reconnu_autorite_ou_interception_https.pdf"
+  },
+  {
+    "id": "IT09",
+    "title": "Boucle de redirection sur un site derrière Cloudflare",
+    "category": "Navigateur",
+    "tags": [
+      "ERR_TOO_MANY_REDIRECTS",
+      "boucle HTTP HTTPS",
+      "Cloudflare"
+    ],
+    "scope": "Administrateur autorisé d’un site utilisant Cloudflare.",
+    "signal": "Le navigateur reçoit des redirections répétées et affiche une erreur de trop nombreuses redirections.",
+    "fact": "Cloudflare décrit des boucles liées au mode SSL/TLS, aux paramètres HTTPS ou aux règles de redirection. Une règle qui renvoie vers une adresse réorientant ensuite vers le point de départ doit être recherchée.",
+    "boundary": "Le contexte est l’administration du site, pas la réparation générique du navigateur visiteur. L’échec de connexion à un compte lié aux cookies est traité dans IT10.",
+    "evidence": [
+      [
+        "Chaîne observée",
+        "Quelles adresses et quels codes de redirection se succèdent ?",
+        "Repérer un retour à une étape antérieure."
+      ],
+      [
+        "Origine",
+        "Le serveur d’origine redirige-t-il HTTP vers HTTPS ?",
+        "Comparer le comportement de l’origine et celui du proxy."
+      ],
+      [
+        "Mode TLS",
+        "Quel mode est réellement défini dans Cloudflare ?",
+        "Contrôler la cohérence avec l’origine."
+      ],
+      [
+        "Règles",
+        "Plusieurs règles imposent-elles des destinations contradictoires ?",
+        "Identifier la règle responsable avant modification."
+      ]
+    ],
+    "logic": "Dessiner la séquence des destinations plutôt que vider tous les navigateurs. Noter la configuration avant changement, puis ne corriger qu’une contradiction identifiée. Cette méthode sépare une boucle d’infrastructure d’une session utilisateur mal conservée.",
+    "steps": [
+      [
+        "Examiner la configuration",
+        "Comparer le mode SSL/TLS et les redirections du serveur avec les indications Cloudflare."
+      ],
+      [
+        "Supprimer la contradiction",
+        "Adapter la règle ou le mode responsable dans le périmètre d’administration autorisé."
+      ],
+      [
+        "Retester le parcours",
+        "Vérifier l’adresse initiale, la destination finale et les variantes de protocole concernées."
+      ]
+    ],
+    "validation": "La séquence atteint la destination voulue sans repasser indéfiniment par les mêmes adresses. Vérifier aussi le maintien du chiffrement attendu et l’accès de connexion au site.",
+    "limit": "Ne pas désactiver HTTPS pour faire disparaître le message ; conserver les exigences du site.",
+    "queries": [
+      "Mon site Cloudflare affiche ERR_TOO_MANY_REDIRECTS.",
+      "Comment chercher une boucle entre HTTP et HTTPS ?"
+    ],
+    "neighbors": [
+      "IT10",
+      "IT07",
+      "IT08"
+    ],
+    "rules": [
+      "Si vous administrez le site et que les destinations se répètent, comparer les règles de redirection et le mode TLS.",
+      "Si seul un visiteur perd sa session dans Firefox, examiner IT10 avant de modifier l’infrastructure."
+    ],
+    "environment": {
+      "product": "Cloudflare",
+      "product_version": null,
+      "os": null,
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": false
+    },
+    "os": null,
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "en"
+    ],
+    "pdf": "PDF/IT09_boucle_de_redirection_sur_un_site_derriere_cloudflare.pdf"
+  },
+  {
+    "id": "IT10",
+    "title": "Connexion au compte refusée : cookies du site",
+    "category": "Navigateur",
+    "tags": [
+      "connexion compte",
+      "cookies bloqués",
+      "session Firefox"
+    ],
+    "scope": "Site demandant un identifiant et un mot de passe dans Firefox.",
+    "signal": "Le site charge, mais l’authentification ne se maintient pas ou revient à l’écran de connexion.",
+    "fact": "Mozilla recommande de vérifier l’acceptation des cookies et les données enregistrées pour le site. Des extensions ou un logiciel contrôlant les cookies peuvent également perturber la connexion.",
+    "boundary": "Le formulaire est accessible : le problème n’est donc pas automatiquement une panne Internet. Un mot de passe réellement incorrect ou une demande de récupération du compte sort du périmètre de cette fiche.",
+    "evidence": [
+      [
+        "Compte",
+        "La saisie manuelle est-elle acceptée ailleurs selon les règles du service ?",
+        "Éviter de confondre identifiants et conservation de session."
+      ],
+      [
+        "Cookies",
+        "Le site signale-t-il un blocage des cookies ?",
+        "Vérifier son autorisation dans Firefox."
+      ],
+      [
+        "Périmètre",
+        "Un seul compte et un seul domaine sont-ils concernés ?",
+        "Limiter les effacements au cas traité."
+      ],
+      [
+        "Extensions",
+        "Une extension liée au site intervient-elle sur la session ?",
+        "Préparer un essai contrôlé si nécessaire."
+      ]
+    ],
+    "logic": "Garder le domaine exact et l’étape où la session se perd. Prévenir l’utilisateur avant un effacement de données de site, car il devra se reconnecter. Ne pas mélanger un échec de session avec une boucle de règles Cloudflare.",
+    "steps": [
+      [
+        "Autoriser les cookies requis",
+        "Vérifier les paramètres applicables au domaine plutôt que modifier toutes les protections."
+      ],
+      [
+        "Renouveler les données du site",
+        "Après accord, retirer les cookies et données temporaires concernés puis refaire une connexion."
+      ],
+      [
+        "Contrôler les extensions",
+        "Si le défaut persiste, examiner les extensions susceptibles d’interagir avec ce site."
+      ]
+    ],
+    "validation": "Se connecter, ouvrir une seconde page du même service puis recharger. Le résultat à consigner est la session effectivement conservée, sans journaliser le mot de passe.",
+    "limit": "Une suppression globale de l’historique ou des mots de passe enregistrés n’est pas un prérequis de cette fiche.",
+    "queries": [
+      "Je reviens toujours à la connexion dans Firefox.",
+      "Le site dit que les cookies sont bloqués et refuse ma session."
+    ],
+    "neighbors": [
+      "IT09",
+      "IT12",
+      "IT05"
+    ],
+    "rules": [
+      "Si la session se perd après connexion, examiner les cookies et données de ce site.",
+      "Si le serveur refuse explicitement les identifiants ou demande un second facteur, contacter le service du compte : ce cas ne traite pas l’authentification."
+    ],
+    "environment": {
+      "product": "Firefox de bureau",
+      "product_version": null,
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT10_connexion_au_compte_refusee_cookies_du_site.pdf"
+  },
+  {
+    "id": "IT11",
+    "title": "Firefox ne peut pas enregistrer un téléchargement",
+    "category": "Navigateur",
+    "tags": [
+      "téléchargement impossible",
+      "dossier de destination",
+      "fichier bloqué"
+    ],
+    "scope": "Firefox de bureau ; téléchargement d’un fichier dont l’origine est connue.",
+    "signal": "Le transfert échoue, le fichier ne se sauvegarde pas ou le panneau affiche un blocage.",
+    "fact": "Mozilla distingue la protection contre les téléchargements dangereux d’un problème de dossier d’enregistrement. Choisir un autre dossier est une vérification documentée ; changer le traitement d’un type de fichier relève d’un autre réglage.",
+    "boundary": "Le mot « téléchargement » ne permet pas de conclure à un manque d’espace. Un avertissement de sécurité doit être lu avant toute nouvelle tentative ; la capacité du disque est examinée séparément.",
+    "evidence": [
+      [
+        "Panneau de téléchargements",
+        "Quel message accompagne l’entrée du fichier ?",
+        "Distinguer refus de sécurité et erreur d’écriture."
+      ],
+      [
+        "Destination",
+        "Le dossier sélectionné existe-t-il et est-il accessible ?",
+        "Vérifier l’emplacement réellement demandé."
+      ],
+      [
+        "Type",
+        "L’échec concerne-t-il tous les fichiers ou une extension précise ?",
+        "Préparer l’examen des actions associées au format."
+      ],
+      [
+        "Comparaison locale",
+        "Un fichier bénin peut-il être enregistré dans un autre dossier autorisé ?",
+        "Tester le chemin sans forcer le fichier bloqué."
+      ]
+    ],
+    "logic": "Séparer le diagnostic de destination et l’évaluation du contenu téléchargé. Changer de dossier peut expliquer une erreur d’enregistrement, mais ne démontre pas qu’un fichier signalé dangereux peut être ouvert sans risque.",
+    "steps": [
+      [
+        "Lire le statut du fichier",
+        "Consulter l’avertissement ou l’erreur dans le panneau des téléchargements."
+      ],
+      [
+        "Essayer une destination valide",
+        "Définir un autre dossier dans les paramètres de téléchargement et tester un fichier sûr."
+      ],
+      [
+        "Examiner le format concerné",
+        "Si un seul type échoue, vérifier les actions configurées pour ce type plutôt que réinitialiser tout Firefox."
+      ]
+    ],
+    "validation": "Valider avec un fichier autorisé, puis vérifier sa présence au chemin prévu. Ne pas déclarer le problème résolu en se fondant uniquement sur la disparition de l’élément dans la liste.",
+    "limit": "Le contournement d’une alerte de fichier malveillant n’est pas une correction du dossier de téléchargement.",
+    "queries": [
+      "Firefox ne peut pas enregistrer mon fichier dans Téléchargements.",
+      "Comment distinguer un fichier bloqué et un dossier de téléchargement invalide ?"
+    ],
+    "neighbors": [
+      "IT17",
+      "IT12",
+      "IT18"
+    ],
+    "rules": [
+      "Si Firefox indique une erreur d’enregistrement, vérifier la destination et ses droits.",
+      "Si le fichier est signalé dangereux, traiter cette alerte sans contourner la protection."
+    ],
+    "environment": {
+      "product": "Firefox de bureau",
+      "product_version": null,
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT11_firefox_ne_peut_pas_enregistrer_un_telechargement.pdf"
+  },
+  {
+    "id": "IT12",
+    "title": "Identifier une extension qui perturbe Firefox",
+    "category": "Navigateur",
+    "tags": [
+      "extension fautive",
+      "mode de dépannage",
+      "accélération matérielle",
+      "thème"
+    ],
+    "scope": "Firefox ouvre les pages, mais présente un dysfonctionnement possiblement lié à sa configuration.",
+    "signal": "Un comportement anormal disparaît éventuellement lorsque le navigateur fonctionne sans ses personnalisations.",
+    "fact": "Le mode de dépannage désactive temporairement les extensions, revient au thème par défaut et coupe l’accélération matérielle. Mozilla demande ensuite des vérifications séparées pour isoler le composant responsable.",
+    "boundary": "Un essai réussi dans ce mode ne désigne pas automatiquement une extension précise. Les fermetures brutales avec rapport de plantage sont orientées vers IT13.",
+    "evidence": [
+      [
+        "Symptôme reproductible",
+        "Quelle action exacte provoque le défaut en mode normal ?",
+        "Définir le même essai pour la comparaison."
+      ],
+      [
+        "Mode de dépannage",
+        "Le défaut subsiste-t-il avec les fonctions temporairement neutralisées ?",
+        "Identifier le groupe de pistes concerné."
+      ],
+      [
+        "Extensions",
+        "Quelle liste d’extensions est activée ?",
+        "Préparer des essais individuels, sans suppression massive."
+      ],
+      [
+        "Graphisme et thème",
+        "Le retour au thème standard ou le test sans accélération change-t-il le résultat ?",
+        "Séparer ces pistes de celle des extensions."
+      ]
+    ],
+    "logic": "Reproduire une seule action et noter l’état des composants à chaque essai. Réactiver par étapes permet de rechercher une relation avec le défaut. Un essai effectué sur une autre page ne constitue pas une comparaison équivalente.",
+    "steps": [
+      [
+        "Démarrer le mode de dépannage",
+        "Dans le menu Firefox, ouvrir Aide ou Aide et signalements selon la version, puis Mode de dépannage… et Redémarrer. Choisir le démarrage temporaire du mode de test."
+      ],
+      [
+        "Isoler la piste",
+        "Si le comportement change, examiner séparément accélération matérielle, thème et extensions."
+      ],
+      [
+        "Corriger le composant confirmé",
+        "Mettre à jour, ajuster ou désactiver l’extension identifiée ; conserver les autres réglages utiles."
+      ]
+    ],
+    "validation": "Refaire l’action initiale en mode normal avec la correction ciblée. Archiver le nom de l’extension ou du réglage réellement mis en cause, pas seulement « Firefox réparé ».",
+    "limit": "Le bouton de réparation complète de Firefox ne doit pas être confondu avec l’ouverture temporaire du mode de dépannage.",
+    "queries": [
+      "Comment trouver quelle extension casse une page Firefox ?",
+      "Le problème disparaît en mode de dépannage, est-ce forcément une extension ?"
+    ],
+    "neighbors": [
+      "IT13",
+      "IT15",
+      "IT10"
+    ],
+    "rules": [
+      "Si le défaut disparaît en mode de dépannage, revenir en mode normal puis tester séparément les composants.",
+      "Si Firefox se ferme brutalement, conserver aussi le rapport de plantage décrit dans IT13."
+    ],
+    "environment": {
+      "product": "Firefox de bureau",
+      "product_version": null,
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT12_identifier_une_extension_qui_perturbe_firefox.pdf"
+  },
+  {
+    "id": "IT13",
+    "title": "Firefox se ferme brutalement : exploiter le rapport de plantage",
+    "category": "Navigateur",
+    "tags": [
+      "crash Firefox",
+      "fermeture inattendue",
+      "about:crashes",
+      "rapport bp-"
+    ],
+    "scope": "Firefox de bureau qui se ferme ou quitte sans demande de l’utilisateur.",
+    "signal": "Le navigateur disparaît ou affiche son rapporteur de plantage ; une simple page lente n’est pas ce symptôme.",
+    "fact": "Mozilla distingue le plantage d’un navigateur encore ouvert mais bloqué. La page about:crashes donne accès aux rapports. Les mises à jour et le résultat en mode de dépannage servent à orienter l’analyse.",
+    "boundary": "La fiche porte sur la fermeture inattendue et les preuves de crash. IT12 concerne l’isolation des personnalisations ; un onglet figé sans fermeture demande une autre description du problème.",
+    "evidence": [
+      [
+        "Événement",
+        "L’application entière se ferme-t-elle ou seulement un onglet ?",
+        "Décrire la manifestation sans tout nommer crash."
+      ],
+      [
+        "Rapport",
+        "Un identifiant récent de rapport est-il disponible ?",
+        "Relier le dossier au bon événement."
+      ],
+      [
+        "Version",
+        "Quelle version Firefox et quel changement récent ?",
+        "Situer le défaut dans un état logiciel précis."
+      ],
+      [
+        "Démarrage de test",
+        "La fermeture survient-elle aussi en mode de dépannage ?",
+        "Préparer la branche de support appropriée."
+      ]
+    ],
+    "logic": "Associer un horaire, une action et un identifiant de rapport. Un lot de vieux rapports n’explique pas nécessairement le dernier incident. Si Firefox ne démarre plus, signaler cette limite au support en précisant que le test n’a pas pu être effectué.",
+    "steps": [
+      [
+        "Actualiser le logiciel",
+        "Vérifier les mises à jour Firefox et les composants pertinents selon les recommandations Mozilla."
+      ],
+      [
+        "Consulter les rapports",
+        "Si le navigateur s’ouvre, accéder à about:crashes et relever le rapport récent utile."
+      ],
+      [
+        "Demander une analyse ciblée",
+        "Transmettre l’identifiant du rapport soumis et le résultat du mode de dépannage au support compétent."
+      ]
+    ],
+    "validation": "Après intervention, reproduire prudemment l’usage initial et surveiller les nouveaux rapports. La clôture doit préciser la période ou l’essai effectivement observé, sans promettre l’absence de tout futur crash.",
+    "limit": "Ne pas publier de données privées contenues dans un rapport ; décider de sa transmission en connaissance de cause.",
+    "queries": [
+      "Firefox se ferme tout seul, où trouver le rapport ?",
+      "À quoi sert about:crashes pour une fermeture inattendue ?"
+    ],
+    "neighbors": [
+      "IT12",
+      "IT11",
+      "IT30"
+    ],
+    "rules": [
+      "Si Firefox se ferme sans demande, rapprocher l’heure du défaut d’un rapport about:crashes.",
+      "Si la fenêtre reste ouverte mais ne répond plus, signaler un blocage : ce cas ne démontre pas un plantage."
+    ],
+    "environment": {
+      "product": "Firefox de bureau",
+      "product_version": null,
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT13_firefox_se_ferme_brutalement_exploiter_le_rapport_de_plantage.pdf"
+  },
+  {
+    "id": "IT14",
+    "title": "Seul Firefox reste muet : volume de l’application",
+    "category": "Navigateur",
+    "tags": [
+      "Firefox sans son",
+      "mélangeur de volume",
+      "application muette"
+    ],
+    "scope": "Windows 11 ; les autres applications savent lire du son.",
+    "signal": "Le même ordinateur produit du son ailleurs, mais pas lors d’une lecture dans Firefox.",
+    "fact": "Mozilla recommande de lire un contenu sonore puis de vérifier la ligne Firefox dans le mélangeur Windows. Le volume de l’application peut être coupé ou trop bas alors que la sortie audio générale fonctionne.",
+    "boundary": "Le critère de sélection est l’échec limité à Firefox. Si aucune application n’émet de son, utiliser IT30 ; si les autres participants n’entendent pas votre voix, examiner IT27.",
+    "evidence": [
+      [
+        "Témoin sonore",
+        "Une autre application produit-elle un son sur la même sortie ?",
+        "Établir le périmètre applicatif."
+      ],
+      [
+        "Lecture Firefox",
+        "Un contenu censé produire du son est-il en cours de lecture ?",
+        "Éviter de mesurer un navigateur au repos."
+      ],
+      [
+        "Mélangeur",
+        "Firefox est-il muet ou réglé très bas ?",
+        "Regarder le volume spécifique à l’application."
+      ],
+      [
+        "Périphérique",
+        "Le son est-il attendu sur un casque ou sur les haut-parleurs ?",
+        "Conserver la même sortie lors de la comparaison."
+      ]
+    ],
+    "logic": "Choisir une lecture connue et observer le mélangeur pendant qu’elle joue. La comparaison doit utiliser le même périphérique de sortie. Passer simultanément au casque Bluetooth et à une autre application empêcherait de localiser le réglage responsable.",
+    "steps": [
+      [
+        "Ouvrir le mélangeur",
+        "Accéder au mélangeur de volume Windows pendant une lecture Firefox."
+      ],
+      [
+        "Rétablir le volume Firefox",
+        "Retirer la mise en sourdine ou relever le niveau propre à l’application."
+      ],
+      [
+        "Poursuivre au bon niveau",
+        "Si tous les logiciels sont silencieux, rechercher la sortie système ; sinon poursuivre dans l’aide audio Firefox."
+      ]
+    ],
+    "validation": "Vérifier que la lecture Firefox devient audible sans modifier le témoin qui fonctionnait. Noter la sortie sélectionnée et le réglage réellement corrigé.",
+    "limit": "Un réglage de volume ne corrige pas automatiquement un blocage de lecture automatique ni un format multimédia non pris en charge.",
+    "queries": [
+      "Les sons Windows marchent mais Firefox est muet.",
+      "Où régler le volume de Firefox uniquement ?"
+    ],
+    "neighbors": [
+      "IT30",
+      "IT27",
+      "IT25"
+    ],
+    "rules": [
+      "Si les autres applications émettent du son sur la même sortie, contrôler le volume propre à Firefox.",
+      "Si plusieurs applications restent muettes, suivre IT30."
+    ],
+    "environment": {
+      "product": "Firefox de bureau",
+      "product_version": null,
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT14_seul_firefox_reste_muet_volume_de_lapplication.pdf"
+  },
+  {
+    "id": "IT15",
+    "title": "Le texte charge, mais les images du site manquent",
+    "category": "Navigateur",
+    "tags": [
+      "images absentes",
+      "PNG JPG GIF",
+      "bloqueur de contenu",
+      "images Firefox"
+    ],
+    "scope": "Firefox ; pages dont le contenu textuel est visible.",
+    "signal": "Des zones d’images sont vides ou incorrectes alors que le document principal apparaît.",
+    "fact": "Mozilla mentionne les données mises en cache, les extensions, des logiciels de sécurité et des défauts côté site. La comparaison avec un autre navigateur ou ordinateur aide à identifier le périmètre du chargement d’images.",
+    "boundary": "Le document HTML est accessible. Une impossibilité complète de charger les sites relève de IT05 ; une panne de son seule relève de IT14.",
+    "evidence": [
+      [
+        "Étendue visuelle",
+        "Toutes les images manquent-elles ou seulement une zone du site ?",
+        "Décrire les ressources affectées."
+      ],
+      [
+        "Comparaison",
+        "La même image manque-t-elle dans un autre navigateur ?",
+        "Chercher un problème local ou côté site."
+      ],
+      [
+        "Filtrage",
+        "Une extension de blocage intervient-elle sur ce domaine ?",
+        "Préparer un essai ciblé et réversible."
+      ],
+      [
+        "Données temporaires",
+        "Le défaut persiste-t-il après un rechargement et un contrôle du cache ?",
+        "Éviter un effacement sans constat préalable."
+      ]
+    ],
+    "logic": "Conserver une capture autorisée montrant la zone manquante et l’adresse de la page. Si les ressources sont absentes partout, ne pas multiplier les changements du profil Firefox. Si le défaut est local, tester séparément cache et extension.",
+    "steps": [
+      [
+        "Comparer le rendu",
+        "Ouvrir la même page avec un témoin autorisé pour voir si le défaut lui est propre."
+      ],
+      [
+        "Traiter les données ciblées",
+        "Examiner cookies et cache du site avant tout nettoyage plus large."
+      ],
+      [
+        "Examiner les extensions",
+        "Effectuer un essai de blocage de contenu sur le domaine ; contacter le site si la ressource est défectueuse partout."
+      ]
+    ],
+    "validation": "Le contrôle porte sur les mêmes images, pas seulement sur l’ouverture de la page. Garder une capture avant et après si elle ne révèle aucune donnée privée.",
+    "limit": "La modification aveugle de about:config et la désactivation générale de la sécurité ne sont pas nécessaires à ce tri.",
+    "queries": [
+      "Les images ne s’affichent pas mais le texte apparaît dans Firefox.",
+      "Comment distinguer une image absente du serveur et un blocage local ?"
+    ],
+    "neighbors": [
+      "IT05",
+      "IT12",
+      "IT11"
+    ],
+    "rules": [
+      "Si le texte apparaît mais pas les images, comparer les mêmes ressources dans un autre navigateur.",
+      "Si toute la page est inaccessible dans Firefox seul, examiner IT05."
+    ],
+    "environment": {
+      "product": "Firefox de bureau",
+      "product_version": null,
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT15_le_texte_charge_mais_les_images_du_site_manquent.pdf"
+  },
+  {
+    "id": "IT16",
+    "title": "Marque-pages Firefox introuvables après un changement de profil",
+    "category": "Navigateur",
+    "tags": [
+      "favoris disparus",
+      "marque-pages",
+      "about:profiles",
+      "sauvegarde"
+    ],
+    "scope": "Firefox de bureau, après mise à jour, réinstallation ou changement de profil.",
+    "signal": "Les favoris habituels ne sont plus visibles, ou seuls ceux du profil par défaut apparaissent.",
+    "fact": "Mozilla explique que les marque-pages dépendent du profil. Le contrôle de about:profiles précède une restauration inutile. Une sauvegarde peut restaurer les favoris, mais elle remplace les marque-pages actuellement présents.",
+    "boundary": "Une barre d’outils simplement masquée ne signifie pas que les données sont perdues. Les fichiers supprimés du disque relèvent de IT19, et non des seules sauvegardes de marque-pages.",
+    "evidence": [
+      [
+        "Affichage",
+        "La barre est-elle cachée ou les favoris manquent-ils aussi dans la bibliothèque ?",
+        "Écarter le problème de présentation."
+      ],
+      [
+        "Profils",
+        "Un autre profil contient-il les marque-pages attendus ?",
+        "Examiner les profils sans les supprimer."
+      ],
+      [
+        "Anciennes données",
+        "Le dossier Anciennes données de Firefox (Old Firefox Data) existe-t-il ?",
+        "Préserver les données potentiellement utiles."
+      ],
+      [
+        "Sauvegarde",
+        "Quelle date de sauvegarde correspond à l’état souhaité ?",
+        "Comparer avant tout remplacement."
+      ]
+    ],
+    "logic": "Bibliothèque, profil, anciennes données, puis sauvegarde. Faire une copie de l’état actuel avant une restauration décidée. Cette organisation évite de remplacer des favoris récents alors que les anciens se trouvent encore dans un autre profil.",
+    "steps": [
+      [
+        "Vérifier le profil actif",
+        "Ouvrir about:profiles et examiner les autres profils disponibles."
+      ],
+      [
+        "Réutiliser les données présentes",
+        "Choisir le profil contenant les favoris au lieu de restaurer un état plus ancien."
+      ],
+      [
+        "Restaurer si nécessaire",
+        "Utiliser la restauration de marque-pages depuis la bibliothèque après avoir compris son effet de remplacement."
+      ]
+    ],
+    "validation": "Vérifier quelques favoris et dossiers attendus ainsi que les ajouts récents à préserver. Consigner le profil ou la sauvegarde utilisé, sans affirmer une récupération intégrale non contrôlée.",
+    "limit": "Ne pas effacer les profils ni Anciennes données de Firefox (Old Firefox Data) avant d’avoir récupéré les éléments nécessaires.",
+    "queries": [
+      "Mes favoris ont disparu après la réinstallation de Firefox.",
+      "Comment vérifier si mes marque-pages sont dans un autre profil ?"
+    ],
+    "neighbors": [
+      "IT19",
+      "IT12",
+      "IT10"
+    ],
+    "rules": [
+      "Si les marque-pages manquent après un changement de profil, vérifier les profils avant toute restauration.",
+      "Si une sauvegarde doit être restaurée, préserver les favoris actuels avant leur remplacement."
+    ],
+    "environment": {
+      "product": "Firefox de bureau",
+      "product_version": null,
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT16_marque_pages_firefox_introuvables_apres_un_changement_de_profil.pdf"
+  },
+  {
+    "id": "IT17",
+    "title": "Disque système saturé : configurer l’Assistant Stockage",
+    "category": "Données",
+    "tags": [
+      "disque C plein",
+      "Assistant Stockage",
+      "Storage Sense",
+      "fichiers temporaires"
+    ],
+    "scope": "Windows 11 ; occupation du disque système.",
+    "signal": "Windows signale un manque de place sur le lecteur système et l’utilisateur cherche un nettoyage maîtrisé.",
+    "fact": "Microsoft décrit l’Assistant Stockage comme un outil de suppression de fichiers temporaires et de gestion de certains contenus selon les réglages choisis. Il agit sur le disque système ; les autres lecteurs ont leur propre vue de stockage.",
+    "boundary": "Un quota OneDrive plein concerne l’espace cloud, traité dans IT21. Un besoin d’espace demandé pendant une installation Windows Update est détaillé dans IT28.",
+    "evidence": [
+      [
+        "Lecteur",
+        "Quel lecteur manque de place et quelle occupation est affichée ?",
+        "Vérifier qu’il s’agit du disque système."
+      ],
+      [
+        "Catégories",
+        "Quels types de contenu occupent la place ?",
+        "Choisir une action adaptée plutôt qu’un effacement au hasard."
+      ],
+      [
+        "Conservation",
+        "Quels réglages concernent la Corbeille et Téléchargements ?",
+        "Lire leur effet avant activation."
+      ],
+      [
+        "Cloud local",
+        "Des fichiers doivent-ils rester disponibles hors connexion ?",
+        "Préserver l’usage prévu des données."
+      ]
+    ],
+    "logic": "Examiner les catégories de stockage avec l’utilisateur, puis sélectionner uniquement les éléments qu’il accepte de retirer. Noter l’espace avant et après. Choisir la durée de conservation selon les besoins des utilisateurs.",
+    "steps": [
+      [
+        "Accéder au stockage",
+        "Ouvrir Paramètres, Système, Stockage, puis l’Assistant Stockage."
+      ],
+      [
+        "Choisir la politique",
+        "Examiner fréquence et catégories ; ne pas activer une suppression de Téléchargements sans décision explicite."
+      ],
+      [
+        "Contrôler le résultat",
+        "Lancer ou programmer le nettoyage retenu et revenir à la vue du lecteur."
+      ]
+    ],
+    "validation": "Relever le gain réellement affiché et vérifier la présence d’un fichier important conservé. Un espace cloud libéré n’est pas un gain local à déclarer automatiquement.",
+    "limit": "Les suppressions de fichiers personnels doivent être choisies ; cette fiche ne propose aucun script de suppression massive.",
+    "queries": [
+      "Comment libérer de la place sur C sans effacer mes documents ?",
+      "Que nettoie l’Assistant Stockage Windows ?"
+    ],
+    "neighbors": [
+      "IT21",
+      "IT28",
+      "IT19"
+    ],
+    "rules": [
+      "Si le disque système est plein, examiner les catégories de stockage avant de retirer des fichiers.",
+      "Si le message concerne le quota OneDrive, suivre IT21 ; si Windows Update demande de la place, suivre IT28."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT17_disque_systeme_sature_configurer_lassistant_stockage.pdf"
+  },
+  {
+    "id": "IT18",
+    "title": "Périphérique USB-C non reconnu : relever le code matériel",
+    "category": "Périphériques",
+    "tags": [
+      "USB-C non reconnu",
+      "Gestionnaire de périphériques",
+      "code erreur USB"
+    ],
+    "scope": "Windows 11 ; périphérique ou station d’accueil USB-C.",
+    "signal": "Windows affiche que le dernier périphérique USB connecté n’est pas reconnu.",
+    "fact": "Microsoft relie ce message à un problème signalé par le périphérique ou à son pilote. La documentation demande de relever le code dans le Gestionnaire de périphériques afin d’utiliser la procédure qui lui correspond.",
+    "boundary": "L’absence de reconnaissance USB précède l’analyse des fichiers. Un support chiffré reconnu qui demande une clé relève de IT22 ; une récupération après suppression relève de IT19.",
+    "evidence": [
+      [
+        "Message",
+        "Le texte concerne-t-il la reconnaissance, la charge ou l’affichage ?",
+        "Les alertes USB-C ne décrivent pas toutes le même défaut."
+      ],
+      [
+        "Identification",
+        "Quel appareil et quel câble sont utilisés ?",
+        "Éviter de conclure avec le seul type de connecteur."
+      ],
+      [
+        "Code",
+        "Quel code est visible dans les propriétés du périphérique ?",
+        "Choisir la bonne procédure Microsoft."
+      ],
+      [
+        "Configuration",
+        "La connexion est-elle directe ou via une station d’accueil ?",
+        "Décrire exactement les éléments intermédiaires."
+      ]
+    ],
+    "logic": "Joindre modèle, type de liaison et code d’erreur sans publier de numéro de série inutile. L’étiquette USB-C seule ne suffit pas à déduire les fonctions du câble ou de la station. La suite doit suivre le défaut effectivement relevé.",
+    "steps": [
+      [
+        "Ouvrir le gestionnaire",
+        "Rechercher le Gestionnaire de périphériques et l’appareil en erreur."
+      ],
+      [
+        "Noter le code précis",
+        "Lire l’état dans les propriétés et conserver le libellé complet."
+      ],
+      [
+        "Appliquer la procédure correspondante",
+        "Utiliser la documentation Microsoft du code ou le support du fabricant pour la combinaison matérielle concernée."
+      ]
+    ],
+    "validation": "Le périphérique est reconnu et sa fonction attendue est testée. La simple disparition de l’alerte ne prouve pas que le transfert de données ou l’affichage fonctionne.",
+    "limit": "Ne pas initialiser ni formater un support contenant des données pour tenter de résoudre une erreur de reconnaissance.",
+    "queries": [
+      "Windows dit que mon périphérique USB-C n’est pas reconnu.",
+      "Quel code faut-il chercher dans le Gestionnaire de périphériques ?"
+    ],
+    "neighbors": [
+      "IT19",
+      "IT22",
+      "IT25"
+    ],
+    "rules": [
+      "Si Windows affiche un code pour le périphérique USB-C, relever ce code avant de choisir la correction.",
+      "Si le périphérique contient des données, ne pas le formater pour traiter un défaut de reconnaissance."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT18_peripherique_usb_c_non_reconnu_relever_le_code_materiel.pdf"
+  },
+  {
+    "id": "IT19",
+    "title": "Fichier supprimé : préparer Windows File Recovery",
+    "category": "Données",
+    "tags": [
+      "fichier supprimé",
+      "winfr",
+      "récupération locale",
+      "NTFS"
+    ],
+    "scope": "Fichier local absent de la Corbeille et à récupérer sur un support pris en charge.",
+    "signal": "Une suppression a eu lieu et l’utilisateur cherche une récupération plutôt qu’un nettoyage de disque.",
+    "fact": "Microsoft conseille de limiter l’usage du support source pour éviter l’écrasement. Windows File Recovery utilise une destination différente de la source ; le mode dépend notamment du système de fichiers et de l’ancienneté de la suppression.",
+    "boundary": "Cette fiche ne traite ni une perte de marque-pages liée au profil ni un écran BitLocker verrouillé. La présence d’un outil de récupération ne constitue pas une garantie de restitution.",
+    "evidence": [
+      [
+        "Origine",
+        "Sur quel lecteur et dans quel dossier le fichier existait-il ?",
+        "Identifier la source sans écrire de nouveaux fichiers dessus."
+      ],
+      [
+        "Copies",
+        "Une copie ou une sauvegarde existe-t-elle déjà ?",
+        "Préférer une donnée disponible à une recherche incertaine."
+      ],
+      [
+        "Support",
+        "Quel système de fichiers et quel événement de perte ?",
+        "Préparer le choix du mode documenté."
+      ],
+      [
+        "Destination",
+        "Quel autre lecteur peut recevoir la récupération ?",
+        "Éviter de réutiliser la partition source."
+      ]
+    ],
+    "logic": "Préserver le support, inventorier les copies disponibles puis décider si l’outil convient. Pour des données essentielles ou un support suspect, faire examiner la situation avant des tentatives répétées.",
+    "steps": [
+      [
+        "Limiter les écritures",
+        "Réduire l’usage du lecteur où la perte s’est produite."
+      ],
+      [
+        "Choisir les paramètres",
+        "Se référer à la table Microsoft des modes Regular et Extensive selon le cas et le format du support."
+      ],
+      [
+        "Récupérer ailleurs",
+        "Exécuter l’outil avec une destination distincte puis examiner les fichiers qu’il restitue réellement."
+      ]
+    ],
+    "validation": "Ouvrir une copie récupérée depuis la destination et vérifier son contenu, pas seulement son nom ou sa taille. Si aucun fichier exploitable n’est retrouvé, consigner cet échec.",
+    "limit": "Ne pas créer une nouvelle partition sur le support source après la perte ; Microsoft précise que cela réduit les chances de récupération.",
+    "queries": [
+      "J’ai vidé la Corbeille, puis-je récupérer un document ?",
+      "Pourquoi Windows File Recovery exige-t-il une autre destination ?"
+    ],
+    "neighbors": [
+      "IT16",
+      "IT17",
+      "IT22"
+    ],
+    "rules": [
+      "Si le fichier est encore dans la Corbeille ou dans une sauvegarde, utiliser cette copie en priorité.",
+      "Sinon, limiter les écritures sur le support source et préparer une destination distincte avant Windows File Recovery."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT19_fichier_supprime_preparer_windows_file_recovery.pdf"
+  },
+  {
+    "id": "IT20",
+    "title": "OneDrive ne synchronise plus : état En pause",
+    "category": "Données",
+    "tags": [
+      "OneDrive en pause",
+      "reprendre synchronisation",
+      "économie batterie"
+    ],
+    "scope": "Application de synchronisation OneDrive sur le poste.",
+    "signal": "L’icône OneDrive indique une pause et les modifications locales ne remontent plus.",
+    "fact": "Microsoft prévoit une reprise manuelle depuis l’icône OneDrive ou une reprise après la durée de pause. L’économie de batterie et une connexion limitée peuvent également entraîner une mise en pause automatique.",
+    "boundary": "La fiche sélectionne un état explicitement en pause. Le dépassement de quota est traité dans IT21 ; un conflit de nom ou un compte déconnecté ne doit pas être assimilé à cet état.",
+    "evidence": [
+      [
+        "Icône",
+        "Quel compte et quelle indication de pause sont affichés ?",
+        "Examiner la bonne instance OneDrive."
+      ],
+      [
+        "Contexte",
+        "Le mode batterie ou la connexion limitée est-il actif ?",
+        "Comprendre une pause automatique éventuelle."
+      ],
+      [
+        "Durée",
+        "Une pause temporaire a-t-elle été choisie ?",
+        "Vérifier si sa fin suffit à rétablir le transfert."
+      ],
+      [
+        "Fichier témoin",
+        "Quel fichier non sensible doit être retrouvé sur le web ?",
+        "Préparer un contrôle concret de synchronisation."
+      ]
+    ],
+    "logic": "Choisir un petit document autorisé, relever sa modification puis reprendre la bonne instance du client. Quand deux comptes sont présents, vérifier chacun séparément. Une reprise d’icône ne démontre pas que le document du bon compte est arrivé.",
+    "steps": [
+      [
+        "Sélectionner l’instance",
+        "Ouvrir l’icône du compte OneDrive concerné dans la zone de notification."
+      ],
+      [
+        "Reprendre le transfert",
+        "Choisir la reprise dans le centre d’activité ou attendre la fin de la pause prévue."
+      ],
+      [
+        "Contrôler les autres messages",
+        "Si le transfert reste bloqué, lire l’état restant et orienter vers le quota ou l’erreur réellement signalée."
+      ]
+    ],
+    "validation": "Comparer le fichier témoin local et sa version web après reprise. Conserver l’état final réellement observé, sans supposer qu’un autre dossier a aussi été synchronisé.",
+    "limit": "Ne pas réinitialiser ou supprimer le dossier OneDrive pour un simple état de pause.",
+    "queries": [
+      "OneDrive affiche En pause, comment relancer le transfert ?",
+      "Pourquoi la synchronisation s’arrête-t-elle en économie de batterie ?"
+    ],
+    "neighbors": [
+      "IT21",
+      "IT17",
+      "IT01"
+    ],
+    "rules": [
+      "Si OneDrive affiche En pause, reprendre la synchronisation du compte concerné.",
+      "Si le client signale un stockage plein, suivre IT21 au lieu de répéter la reprise."
+    ],
+    "environment": {
+      "product": "OneDrive",
+      "product_version": null,
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT20_onedrive_ne_synchronise_plus_etat_en_pause.pdf"
+  },
+  {
+    "id": "IT21",
+    "title": "OneDrive plein : quota cloud dépassé",
+    "category": "Données",
+    "tags": [
+      "quota OneDrive",
+      "stockage cloud plein",
+      "lecture seule",
+      "capacité cloud"
+    ],
+    "scope": "Compte OneDrive personnel ou professionnel ; type de compte à identifier.",
+    "signal": "OneDrive signale un dépassement de capacité et empêche de nouveaux transferts.",
+    "fact": "Microsoft précise qu’un dépassement de quota peut bloquer ajout, modification et synchronisation, avec des fichiers existants en lecture seule. Les actions dépendent du compte personnel ou du compte géré par une organisation.",
+    "boundary": "La capacité concernée est celle du service cloud. Libérer de la place sur C ne démontre pas que le quota OneDrive a baissé. Un client simplement en pause relève de IT20.",
+    "evidence": [
+      [
+        "Compte",
+        "Le message vient-il du compte personnel ou scolaire ?",
+        "Choisir le bon espace de gestion."
+      ],
+      [
+        "Quota",
+        "Quelle occupation est affichée dans OneDrive sur le web ?",
+        "Établir le dépassement réellement signalé."
+      ],
+      [
+        "Corbeille cloud",
+        "Des éléments y occupent-ils encore de la capacité ?",
+        "Examiner les données concernées avant effacement."
+      ],
+      [
+        "Droit de décision",
+        "L’utilisateur peut-il gérer le quota ou faut-il un administrateur ?",
+        "Distinguer nettoyage et décision d’abonnement."
+      ]
+    ],
+    "logic": "Inventorier les éléments volumineux, préserver les documents utiles puis choisir entre retrait autorisé et capacité supplémentaire. Pour un compte d’établissement, présenter l’usage au support. Consulter le plafond du compte concerné.",
+    "steps": [
+      [
+        "Ouvrir la gestion du stockage",
+        "Examiner l’espace du compte concerné depuis OneDrive web."
+      ],
+      [
+        "Réduire l’occupation avec accord",
+        "Supprimer seulement les éléments devenus inutiles et examiner la Corbeille cloud."
+      ],
+      [
+        "Adapter la capacité si nécessaire",
+        "Pour un compte géré, contacter l’administrateur ; pour un compte personnel, examiner les options du service."
+      ]
+    ],
+    "validation": "La capacité repasse sous le plafond du compte et un fichier autorisé peut de nouveau être transféré. Vérifier la présence des documents conservés après toute suppression.",
+    "limit": "La suppression de fichiers synchronisés peut se répercuter ailleurs ; ne pas confondre nettoyage cloud et retrait d’une copie locale.",
+    "queries": [
+      "Mon OneDrive est plein alors que mon PC a de la place.",
+      "Pourquoi mes fichiers OneDrive deviennent-ils en lecture seule ?"
+    ],
+    "neighbors": [
+      "IT17",
+      "IT20",
+      "IT19"
+    ],
+    "rules": [
+      "Si le quota cloud du compte est atteint, examiner les fichiers et la capacité de ce compte.",
+      "Si seul le disque local est plein, suivre IT17 ; une pause explicite relève de IT20."
+    ],
+    "environment": {
+      "product": "OneDrive",
+      "product_version": null,
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT21_onedrive_plein_quota_cloud_depasse.pdf"
+  },
+  {
+    "id": "IT22",
+    "title": "Écran BitLocker : retrouver la clé de récupération",
+    "category": "Données",
+    "tags": [
+      "BitLocker",
+      "clé 48 chiffres",
+      "identifiant de récupération",
+      "disque verrouillé"
+    ],
+    "scope": "Lecteur chiffré Windows demandant sa clé légitime de récupération.",
+    "signal": "Le démarrage ou l’ouverture d’un lecteur s’arrête sur une demande BitLocker.",
+    "fact": "Microsoft décrit une clé de récupération à 48 chiffres. L’identifiant affiché permet de choisir la bonne clé parmi les sauvegardes possibles : compte Microsoft, compte d’organisation, impression ou support USB.",
+    "boundary": "Il s’agit d’un déverrouillage autorisé, pas d’un contournement du chiffrement. La recherche d’un fichier supprimé sur un lecteur accessible appartient à IT19.",
+    "evidence": [
+      [
+        "Identifiant",
+        "Quel identifiant de clé apparaît sur l’écran ?",
+        "Le rapprocher de la sauvegarde correspondante."
+      ],
+      [
+        "Propriétaire",
+        "Qui a configuré ou chiffré le poste ?",
+        "Rechercher dans le compte qui a pu sauvegarder la clé."
+      ],
+      [
+        "Gestion",
+        "Le matériel dépend-il d’un établissement ?",
+        "Faire intervenir le support habilité."
+      ],
+      [
+        "Sauvegardes",
+        "Une impression ou une copie USB a-t-elle été conservée ?",
+        "Examiner les emplacements légitimes connus."
+      ]
+    ],
+    "logic": "Noter l’identifiant sans photographier une clé complète dans un ticket public. Accéder depuis un autre appareil au compte autorisé ou contacter l’organisation. L’absence d’une clé dans le premier compte essayé n’établit pas qu’aucune sauvegarde n’existe.",
+    "steps": [
+      [
+        "Chercher dans le bon compte",
+        "Consulter la page officielle de clés Microsoft ou le compte scolaire/professionnel concerné."
+      ],
+      [
+        "Comparer l’identifiant",
+        "Sélectionner la clé correspondant à l’identifiant affiché, plutôt qu’essayer une clé sans correspondance."
+      ],
+      [
+        "Utiliser les autres sauvegardes",
+        "Rechercher la copie imprimée ou USB ; demander au service informatique pour un appareil géré."
+      ]
+    ],
+    "validation": "Vérifier le déverrouillage du lecteur puis l’accès aux données nécessaires. Conserver la clé uniquement dans l’emplacement de sauvegarde approuvé et ne pas la joindre à un ticket public.",
+    "limit": "Microsoft ne peut pas recréer une clé perdue. Une réinitialisation du poste peut supprimer ses fichiers et exige une décision distincte.",
+    "queries": [
+      "Où retrouver la clé BitLocker demandée au démarrage ?",
+      "Comment savoir quelle clé BitLocker correspond à mon écran ?"
+    ],
+    "neighbors": [
+      "IT18",
+      "IT19",
+      "IT16"
+    ],
+    "rules": [
+      "Si BitLocker demande une clé de récupération, relever son identifiant et chercher la clé correspondante dans le compte autorisé.",
+      "Si l’appareil appartient à une organisation, contacter son support pour retrouver la sauvegarde légitime."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT22_ecran_bitlocker_retrouver_la_cle_de_recuperation.pdf"
+  },
+  {
+    "id": "IT23",
+    "title": "Imprimante affichée hors connexion",
+    "category": "Périphériques",
+    "tags": [
+      "imprimante hors connexion",
+      "offline",
+      "réseau imprimante"
+    ],
+    "scope": "Imprimante déclarée hors connexion par Windows 11.",
+    "signal": "L’imprimante apparaît hors connexion alors qu’elle semble allumée.",
+    "fact": "Microsoft recommande d’examiner la connexion de l’imprimante et, pour le Wi-Fi, sa présence sur le même réseau que le PC. Un redémarrage et l’utilitaire d’impression font partie des vérifications recommandées.",
+    "boundary": "Le signal principal est l’état hors connexion. Si l’imprimante est joignable mais qu’un document bloque les suivants, IT24 cible la file d’attente.",
+    "evidence": [
+      [
+        "État physique",
+        "L’écran de l’imprimante signale-t-il un défaut ou un arrêt ?",
+        "Lire aussi le matériel, pas seulement Windows."
+      ],
+      [
+        "Liaison",
+        "La connexion est-elle USB, Ethernet ou Wi-Fi ?",
+        "Choisir le contrôle correspondant."
+      ],
+      [
+        "Réseau Wi-Fi",
+        "PC et imprimante appartiennent-ils au même réseau prévu ?",
+        "Vérifier le nom et le contexte de connexion."
+      ],
+      [
+        "Windows",
+        "Quel statut apparaît dans Imprimantes et scanners ?",
+        "Conserver l’état avant les changements."
+      ]
+    ],
+    "logic": "Confirmer la liaison utilisée avant de retirer l’imprimante de Windows. Pour une imprimante partagée, prévenir les autres utilisateurs avant un redémarrage. Le maintien d’un état hors connexion n’autorise pas à conclure que le moteur d’impression est défectueux.",
+    "steps": [
+      [
+        "Revoir alimentation et liaison",
+        "Contrôler le branchement et le réseau ; suivre la notice du fabricant pour les indications sur l’imprimante."
+      ],
+      [
+        "Relancer l’appareil si approprié",
+        "Effectuer le redémarrage prévu puis consulter à nouveau l’état Windows."
+      ],
+      [
+        "Utiliser le diagnostic d’impression",
+        "Exécuter l’utilitaire Windows ; ne réinstaller l’imprimante qu’après les vérifications de connexion."
+      ]
+    ],
+    "validation": "Windows ne la déclare plus hors connexion et une page de test autorisée sort sur l’appareil attendu. Noter le modèle et le mode de liaison corrigé.",
+    "limit": "Retirer une imprimante partagée sans connaître sa méthode de réinstallation peut compliquer le rétablissement.",
+    "queries": [
+      "Mon imprimante est allumée mais Windows la dit hors connexion.",
+      "Que vérifier avant de réinstaller une imprimante Wi-Fi ?"
+    ],
+    "neighbors": [
+      "IT24",
+      "IT04",
+      "IT01"
+    ],
+    "rules": [
+      "Si Windows affiche Hors connexion, vérifier l’alimentation et la liaison de l’imprimante.",
+      "Si elle est disponible mais qu’un document reste bloqué, suivre IT24."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT23_imprimante_affichee_hors_connexion.pdf"
+  },
+  {
+    "id": "IT24",
+    "title": "Document bloqué dans la file d’impression",
+    "category": "Périphériques",
+    "tags": [
+      "file impression bloquée",
+      "spouleur",
+      "Print Spooler",
+      "document en attente"
+    ],
+    "scope": "Windows 11 ; travaux visibles dans la file de l’imprimante.",
+    "signal": "Un document ne quitte pas la file et les impressions suivantes n’avancent plus.",
+    "fact": "Microsoft propose d’annuler les travaux depuis la file, puis de redémarrer le service Spouleur d’impression. Le nettoyage manuel du dossier de spouleur est une étape plus avancée lorsque l’annulation ne suffit pas.",
+    "boundary": "La fiche traite des tâches mises en attente. L’état hors connexion ou l’absence de liaison doit être examiné dans IT23 avant d’effacer les travaux.",
+    "evidence": [
+      [
+        "File concernée",
+        "Quel modèle et quelle file contiennent le travail bloqué ?",
+        "Éviter d’agir sur une autre imprimante."
+      ],
+      [
+        "Travail",
+        "Quel document occupe la première position ou signale une erreur ?",
+        "Identifier ce qui retient les suivants."
+      ],
+      [
+        "Annulation",
+        "La demande d’annulation retire-t-elle effectivement le travail ?",
+        "Vérifier le résultat, pas seulement le clic."
+      ],
+      [
+        "Service",
+        "Le service de spouleur fonctionne-t-il sur le poste concerné ?",
+        "Préparer une relance autorisée."
+      ]
+    ],
+    "logic": "Prévenir l’utilisateur que les travaux annulés devront être renvoyés. Conserver leur liste utile, puis essayer l’annulation avant une action sur le service. Sur une infrastructure partagée, déterminer le serveur responsable au lieu d’interrompre tous les postes.",
+    "steps": [
+      [
+        "Annuler les travaux concernés",
+        "Ouvrir Paramètres, Bluetooth et appareils, Imprimantes et scanners, puis la file voulue."
+      ],
+      [
+        "Redémarrer le spouleur",
+        "Si nécessaire et autorisé, ouvrir services.msc, sélectionner Spouleur d’impression puis Redémarrer."
+      ],
+      [
+        "Escalader le nettoyage avancé",
+        "Si la file reste figée, faire appliquer la procédure Microsoft du dossier de spouleur par le support."
+      ]
+    ],
+    "validation": "Envoyer une nouvelle page de test après vérification de la file vide. Confirmer qu’elle disparaît de la file et qu’elle est produite par la bonne imprimante, sans duplications involontaires.",
+    "limit": "Cette fiche ne donne pas de commande de suppression récursive dans un dossier système.",
+    "queries": [
+      "Une impression reste en attente et bloque les suivantes.",
+      "Quand faut-il redémarrer le spouleur d’impression ?"
+    ],
+    "neighbors": [
+      "IT23",
+      "IT04",
+      "IT29"
+    ],
+    "rules": [
+      "Si l’imprimante est hors connexion, traiter IT23 avant la file.",
+      "Si elle est disponible, essayer l’annulation du travail avant de redémarrer le spouleur avec les droits requis."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT24_document_bloque_dans_la_file_dimpression.pdf"
+  },
+  {
+    "id": "IT25",
+    "title": "Bluetooth actif, mais appairage impossible",
+    "category": "Périphériques",
+    "tags": [
+      "Bluetooth appairage",
+      "jumelage impossible",
+      "mode association",
+      "batterie"
+    ],
+    "scope": "Windows 11 détecte la fonction Bluetooth ; l’accessoire ne s’associe pas.",
+    "signal": "Le Bluetooth est disponible, mais un casque, une souris ou un autre accessoire ne se connecte pas.",
+    "fact": "Microsoft cite notamment le mode d’appairage, la distance et la batterie de l’accessoire. Un appareil déjà connu peut être retiré de la liste puis ajouté de nouveau pour refaire son association.",
+    "boundary": "Une connexion Bluetooth établie sans son est un autre symptôme. L’absence totale d’adaptateur Bluetooth ne correspond pas au cas ciblé ici.",
+    "evidence": [
+      [
+        "Mode accessoire",
+        "La notice confirme-t-elle que le mode association est activé ?",
+        "Distinguer allumage et appairage."
+      ],
+      [
+        "Énergie",
+        "L’accessoire est-il suffisamment chargé ?",
+        "Écarter une tentative interrompue par batterie faible."
+      ],
+      [
+        "Proximité",
+        "Le test est-il réalisé près du PC ?",
+        "Limiter un défaut de portée pendant l’essai."
+      ],
+      [
+        "Association existante",
+        "L’appareil apparaît-il déjà dans la liste Windows ?",
+        "Décider si une nouvelle association est pertinente."
+      ]
+    ],
+    "logic": "Traiter un accessoire à la fois et suivre sa notice pour le mode association. Relever le nom affiché afin d’éviter un appareil voisin. Une suppression de jumelage ne doit être tentée qu’en sachant comment le refaire.",
+    "steps": [
+      [
+        "Activer l’association",
+        "Vérifier le Bluetooth Windows et placer l’accessoire dans son mode prévu."
+      ],
+      [
+        "Rétablir de bonnes conditions",
+        "Charger l’appareil et le rapprocher pour le test."
+      ],
+      [
+        "Refaire le jumelage si nécessaire",
+        "Retirer l’entrée concernée dans Bluetooth et appareils, puis utiliser Ajouter un appareil."
+      ]
+    ],
+    "validation": "Confirmer l’état connecté, puis tester la fonction réelle : déplacement du pointeur, saisie ou lecture audio selon le matériel. Une apparition dans la liste ne suffit pas à valider toutes les fonctions.",
+    "limit": "Ne pas supprimer en bloc tous les accessoires ni installer un pilote provenant d’un site non identifié.",
+    "queries": [
+      "Le Bluetooth est activé mais mon casque ne s’appaire pas.",
+      "Pourquoi un accessoire allumé n’apparaît-il pas pendant l’association ?"
+    ],
+    "neighbors": [
+      "IT30",
+      "IT27",
+      "IT18"
+    ],
+    "rules": [
+      "Si l’accessoire ne s’associe pas, vérifier sa charge et son mode d’association avant de recommencer.",
+      "Si le casque est connecté mais reste silencieux, examiner la sortie audio dans IT30."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT25_bluetooth_actif_mais_appairage_impossible.pdf"
+  },
+  {
+    "id": "IT26",
+    "title": "Caméra inaccessible à une application",
+    "category": "Périphériques",
+    "tags": [
+      "caméra autorisation",
+      "webcam obturateur",
+      "confidentialité Windows"
+    ],
+    "scope": "Windows 11 ; caméra intégrée ou USB utilisée par une application.",
+    "signal": "L’application n’obtient pas l’image de la caméra ou affiche un refus d’accès.",
+    "fact": "Microsoft recommande de vérifier le bouton ou l’obturateur physique, les autorisations de caméra et un essai dans l’application Caméra. Les applications de bureau disposent d’un réglage d’accès spécifique.",
+    "boundary": "Le problème concerne l’image captée. L’absence de voix relève de IT27. Si seule une page web échoue malgré un test système réussi, il faut préciser le navigateur et les autorisations du site.",
+    "evidence": [
+      [
+        "Dispositif physique",
+        "Un cache ou un interrupteur empêche-t-il l’utilisation ?",
+        "Lire la commande propre au modèle."
+      ],
+      [
+        "Permissions",
+        "L’accès caméra est-il autorisé dans Confidentialité et sécurité ?",
+        "Distinguer blocage global et autorisation d’application."
+      ],
+      [
+        "Application Caméra",
+        "Un aperçu est-il visible dans l’outil Windows ?",
+        "Comparer application système et application cible."
+      ],
+      [
+        "Gestion du poste",
+        "Le réglage est-il grisé ou imposé par une organisation ?",
+        "Faire intervenir un administrateur si nécessaire."
+      ]
+    ],
+    "logic": "Utiliser l’aperçu système comme témoin, puis revenir à l’application de cours ou de réunion. Si le témoin fonctionne, conserver ce résultat pour éviter une réinstallation de pilote sans rapport avec le défaut applicatif.",
+    "steps": [
+      [
+        "Ouvrir la caméra matériellement",
+        "Vérifier le cache ou l’interrupteur prévu par le fabricant."
+      ],
+      [
+        "Vérifier les droits",
+        "Examiner Paramètres, Confidentialité et sécurité, Caméra, y compris l’accès des applications de bureau."
+      ],
+      [
+        "Comparer les applications",
+        "Tester Caméra puis l’application cible et poursuivre sur les réglages de celle qui échoue."
+      ]
+    ],
+    "validation": "Vérifier l’aperçu dans l’application réellement utilisée et refermer les accès devenus inutiles. Une image dans Caméra seule ne prouve pas que le service de visioconférence est opérationnel.",
+    "limit": "Un accès grisé par une politique ne doit pas être contourné ; le support doit confirmer l’autorisation.",
+    "queries": [
+      "La webcam fonctionne dans Caméra mais pas dans mon application.",
+      "Où vérifier l’autorisation caméra des applications de bureau ?"
+    ],
+    "neighbors": [
+      "IT27",
+      "IT18",
+      "IT12"
+    ],
+    "rules": [
+      "Si la caméra fonctionne dans l’application Caméra, vérifier les autorisations et le choix de caméra de l’application concernée.",
+      "Si l’image manque aussi dans Caméra, examiner d’abord le cache physique et la liaison."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT26_camera_inaccessible_a_une_application.pdf"
+  },
+  {
+    "id": "IT27",
+    "title": "Les autres ne m’entendent pas : entrée microphone",
+    "category": "Périphériques",
+    "tags": [
+      "microphone muet",
+      "entrée audio",
+      "test micro",
+      "autorisation microphone"
+    ],
+    "scope": "Windows 11 ; microphone interne, casque ou webcam.",
+    "signal": "La voix n’est pas reçue, même si l’utilisateur entend correctement les autres participants.",
+    "fact": "Microsoft demande de vérifier le bouton Muet, les autorisations et le périphérique d’entrée sélectionné. Les paramètres Son permettent un test d’enregistrement du microphone afin de vérifier ce qui est effectivement capté.",
+    "boundary": "La fonction visée est l’enregistrement, pas la lecture sonore. Le manque de son en sortie relève de IT30 ; un accessoire Bluetooth non associé relève de IT25.",
+    "evidence": [
+      [
+        "Muet matériel",
+        "Le casque ou le microphone possède-t-il une commande activée ?",
+        "Écarter une coupure locale."
+      ],
+      [
+        "Entrée choisie",
+        "Quel microphone est sélectionné dans les paramètres Son ?",
+        "Vérifier le capteur réellement testé."
+      ],
+      [
+        "Permission",
+        "L’application et les applications de bureau ont-elles l’accès requis ?",
+        "Contrôler la couche de confidentialité."
+      ],
+      [
+        "Test enregistré",
+        "Le test Windows produit-il une voix exploitable ?",
+        "Comparer capture système et application distante."
+      ]
+    ],
+    "logic": "Prononcer une phrase non sensible et écouter l’échantillon du test. Si cet enregistrement est correct, transmettre le résultat à la personne qui vérifie la visioconférence. Ne pas modifier simultanément toutes les entrées disponibles.",
+    "steps": [
+      [
+        "Rétablir la capture",
+        "Retirer la mise en sourdine et vérifier le branchement ou l’association du casque."
+      ],
+      [
+        "Sélectionner et autoriser",
+        "Choisir l’entrée voulue dans Système, Son, puis examiner les droits Microphone."
+      ],
+      [
+        "Lancer le test",
+        "Dans les propriétés du microphone, sélectionner Démarrer le test, parler, puis Arrêter le test et Lire pour écouter l’échantillon enregistré."
+      ]
+    ],
+    "validation": "La vérification comporte un enregistrement local intelligible puis un essai dans l’application concernée. Noter le microphone retenu pour distinguer une correction d’entrée d’une simple hausse du volume de sortie.",
+    "limit": "L’échantillon peut contenir une voix identifiable : transmettre uniquement les informations nécessaires au support, dans le canal autorisé.",
+    "queries": [
+      "J’entends la réunion mais personne n’entend ma voix.",
+      "Comment tester le microphone sélectionné sous Windows ?"
+    ],
+    "neighbors": [
+      "IT30",
+      "IT25",
+      "IT26"
+    ],
+    "rules": [
+      "Si aucun signal d’entrée n’apparaît, vérifier le microphone choisi et ses autorisations.",
+      "Si le test local est intelligible, poursuivre dans l’application de réunion ; une sortie silencieuse relève de IT30."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT27_les_autres_ne_mentendent_pas_entree_microphone.pdf"
+  },
+  {
+    "id": "IT28",
+    "title": "Windows Update réclame de l’espace supplémentaire",
+    "category": "Système",
+    "tags": [
+      "mise à jour espace insuffisant",
+      "Fix issues",
+      "stockage externe temporaire"
+    ],
+    "scope": "Windows 11 ; installation de mise à jour arrêtée sur une demande explicite de place.",
+    "signal": "L’assistant de mise à jour indique qu’il faut libérer de la capacité avant de poursuivre.",
+    "fact": "Microsoft prévoit un nettoyage choisi et, lorsque l’option est proposée, un support externe temporaire. Le besoin varie selon l’opération ; un support externe ne supprime pas nécessairement tout besoin de place sur le lecteur interne.",
+    "boundary": "La sélection de cette fiche repose sur le message de l’installateur. Le nettoyage courant du disque est traité dans IT17. Un service Windows Update arrêté correspond au cas IT29.",
+    "evidence": [
+      [
+        "Message exact",
+        "Quelle quantité supplémentaire l’assistant demande-t-il réellement ?",
+        "Employer la demande affichée plutôt qu’une valeur supposée."
+      ],
+      [
+        "Étape",
+        "L’installation propose-t-elle Corriger les problèmes ou une option externe ?",
+        "Suivre la branche disponible pour cette opération."
+      ],
+      [
+        "Support choisi",
+        "Un support externe contient-il des données à préserver ?",
+        "Préparer une sauvegarde avant utilisation."
+      ],
+      [
+        "Interne",
+        "Quelle place reste disponible sur le lecteur système ?",
+        "Distinguer capacité interne et apport externe."
+      ]
+    ],
+    "logic": "Noter la demande de l’assistant puis choisir les fichiers retirables avec l’utilisateur. Si l’option externe est présente, utiliser un support préparé sans effacer ses documents par défaut. L’objectif est de satisfaire cette installation, pas d’appliquer un seuil universel.",
+    "steps": [
+      [
+        "Examiner le nettoyage",
+        "Utiliser les recommandations de nettoyage Windows en contrôlant les catégories sélectionnées."
+      ],
+      [
+        "Suivre l’option externe",
+        "Dans Windows Update, utiliser l’assistant affiché et sélectionner le support préparé si cette branche est disponible."
+      ],
+      [
+        "Terminer et contrôler",
+        "Suivre l’installation puis retirer le support après la fin prévue par l’assistant."
+      ]
+    ],
+    "validation": "Vérifier l’historique et le statut de la mise à jour, puis l’ouverture normale de la session. Un gain de capacité seul ne prouve pas que l’installation s’est terminée.",
+    "limit": "Ne pas promettre une quantité fixe suffisante pour toutes les versions et toutes les mises à jour.",
+    "queries": [
+      "Windows Update me demande plus de place pour installer la mise à jour.",
+      "Peut-on utiliser un support externe pour une mise à jour Windows ?"
+    ],
+    "neighbors": [
+      "IT17",
+      "IT29",
+      "IT18"
+    ],
+    "rules": [
+      "Si Windows Update demande explicitement plus de place, suivre son assistant et les options affichées.",
+      "Si le message indique 0x80070422, suivre IT29 plutôt que nettoyer des fichiers au hasard."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT28_windows_update_reclame_de_lespace_supplementaire.pdf"
+  },
+  {
+    "id": "IT29",
+    "title": "Windows Update échoue avec le code 0x80070422",
+    "category": "Système",
+    "tags": [
+      "0x80070422",
+      "service Windows Update",
+      "services.msc"
+    ],
+    "scope": "Windows 11 ; code exact affiché lors d’une tentative de mise à jour.",
+    "signal": "La recherche ou l’installation échoue et le code 0x80070422 est explicitement relevé.",
+    "fact": "La documentation Microsoft associe ce code à un service Windows Update désactivé ou arrêté. Elle indique de vérifier ce service dans la console Services, de l’activer si nécessaire et de le démarrer.",
+    "boundary": "La fiche ne regroupe pas tous les codes Windows Update. Une demande d’espace sans ce code doit être traitée dans IT28 ; un code différent nécessite son propre diagnostic.",
+    "evidence": [
+      [
+        "Code",
+        "Le message contient-il bien 0x80070422 ?",
+        "Éviter une solution fondée sur un code voisin."
+      ],
+      [
+        "Service",
+        "Quel état est affiché pour Windows Update dans Services ?",
+        "Distinguer constat et modification."
+      ],
+      [
+        "Politique",
+        "Le poste reçoit-il ses mises à jour par une organisation ?",
+        "Faire confirmer la configuration autorisée."
+      ],
+      [
+        "Droits",
+        "La personne dispose-t-elle du droit d’administrer ce service ?",
+        "Préparer l’intervention du support si nécessaire."
+      ]
+    ],
+    "logic": "Relever l’état initial et demander l’accord du gestionnaire sur un poste administré. Si le service est déjà actif ou si le code change après correction, conserver cette évolution au lieu de répéter indéfiniment la même manipulation.",
+    "steps": [
+      [
+        "Ouvrir Services",
+        "Utiliser services.msc pour examiner Windows Update."
+      ],
+      [
+        "Rétablir l’état autorisé",
+        "Si le service est désactivé, faire appliquer le démarrage prévu et lancer le service, conformément à la procédure Microsoft."
+      ],
+      [
+        "Retenter la mise à jour",
+        "Revenir dans Windows Update après l’intervention et noter le résultat ou le nouveau code."
+      ]
+    ],
+    "validation": "L’objectif du contrôle est une nouvelle tentative de mise à jour sans ce blocage. Un service démarré ne permet pas d’annoncer que tous les correctifs ont été installés.",
+    "limit": "Ne pas supprimer les dossiers de mise à jour ni désactiver l’antivirus pour appliquer automatiquement une recette destinée à un autre code.",
+    "queries": [
+      "Que signifie 0x80070422 dans Windows Update ?",
+      "Pourquoi contrôler le service Windows Update pour cette erreur ?"
+    ],
+    "neighbors": [
+      "IT28",
+      "IT17",
+      "IT24"
+    ],
+    "rules": [
+      "Si le code exact est 0x80070422, vérifier l’état du service Windows Update et la politique du poste.",
+      "Si l’assistant demande de l’espace, suivre IT28 ; si le code change, relever le nouveau code avant de poursuivre."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT29_windows_update_echoue_avec_le_code_0x80070422.pdf"
+  },
+  {
+    "id": "IT30",
+    "title": "Aucun son dans Windows : mauvaise sortie audio",
+    "category": "Périphériques",
+    "tags": [
+      "aucun son Windows",
+      "sortie HDMI",
+      "haut-parleurs",
+      "périphérique par défaut"
+    ],
+    "scope": "Windows 11 ; plusieurs applications sont silencieuses.",
+    "signal": "Les lectures ne sont pas audibles sur les haut-parleurs ou le casque attendus.",
+    "fact": "Microsoft recommande de vérifier le périphérique de sortie, les connexions et les volumes. Un écran raccordé peut être choisi comme sortie par défaut alors qu’il ne possède pas les haut-parleurs attendus.",
+    "boundary": "Cette fiche vise la lecture au niveau système. Un Firefox seul silencieux relève de IT14 ; une voix non captée relève de IT27. L’appairage absent d’un casque Bluetooth se traite dans IT25.",
+    "evidence": [
+      [
+        "Portée",
+        "Plusieurs applications sont-elles réellement sans son ?",
+        "Vérifier qu’il ne s’agit pas d’un volume applicatif isolé."
+      ],
+      [
+        "Destination",
+        "Quel nom de périphérique figure dans la sortie Windows ?",
+        "Comparer à l’appareil que l’utilisateur écoute."
+      ],
+      [
+        "Raccordement",
+        "Casque, haut-parleurs et écran sont-ils branchés comme prévu ?",
+        "Décrire le trajet audio réel."
+      ],
+      [
+        "Volume",
+        "Une mise en sourdine concerne-t-elle le système ou le matériel ?",
+        "Vérifier les commandes disponibles sans changer de pilote."
+      ]
+    ],
+    "logic": "Utiliser une lecture connue et ne changer que la sortie choisie. Conserver le même casque ou les mêmes haut-parleurs pendant l’essai. Une réinstallation du pilote avant ce contrôle empêcherait de savoir si la destination était simplement incorrecte.",
+    "steps": [
+      [
+        "Choisir la sortie voulue",
+        "Ouvrir les paramètres Son et sélectionner le casque ou les haut-parleurs attendus dans Sortie."
+      ],
+      [
+        "Contrôler alimentation et niveau",
+        "Vérifier branchements, alimentation du matériel et commandes de volume."
+      ],
+      [
+        "Compléter le diagnostic",
+        "Si aucune sortie ne fonctionne, utiliser l’utilitaire audio Windows et poursuivre selon son résultat."
+      ]
+    ],
+    "validation": "Vérifier une lecture dans deux applications sur la sortie retenue. Si une seule reste muette, revenir à son réglage propre plutôt que déclarer le système audio encore défaillant.",
+    "limit": "Sélectionner une sortie n’installe pas un périphérique absent ; une absence matérielle ou un défaut de pilote demande une analyse complémentaire.",
+    "queries": [
+      "Mon PC n’émet plus aucun son après branchement d’un écran.",
+      "Comment choisir le bon périphérique de sortie Windows ?"
+    ],
+    "neighbors": [
+      "IT14",
+      "IT27",
+      "IT25"
+    ],
+    "rules": [
+      "Si plusieurs applications sont silencieuses, sélectionner et tester la bonne sortie Windows.",
+      "Si seul Firefox reste muet sur cette même sortie, suivre IT14 ; si le défaut concerne la voix captée, suivre IT27."
+    ],
+    "environment": {
+      "product": "Windows",
+      "product_version": "11",
+      "os": "Windows 11",
+      "langue_interface": "fr-FR",
+      "content_language": "fr-FR",
+      "interface_tested": false,
+      "validation_kind": "documentaire",
+      "version_specific_build_required": false,
+      "source_principale_francaise": true
+    },
+    "os": "Windows 11",
+    "langue_interface": "fr-FR",
+    "source_languages": [
+      "fr-FR"
+    ],
+    "pdf": "PDF/IT30_aucun_son_dans_windows_mauvaise_sortie_audio.pdf"
+  }
+]

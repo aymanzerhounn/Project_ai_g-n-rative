@@ -1,0 +1,11 @@
+flowchart LR
+ A[Document candidat] --> H[Relecture humaine et droits]
+ H -->|admis seulement| I[Inventaire UTF-8]
+ I --> F{Format}
+ F -->|PDF texte| T[Extraction par page]
+ F -->|scan| O[OCR et contrôle visuel]
+ T --> C[Passages, tableaux et figures]
+ O --> C
+ C --> M[ID, version, page, élément, équipement, groupes]
+ M --> E[Embeddings]
+ E --> V[Index avec filtre d’accès]

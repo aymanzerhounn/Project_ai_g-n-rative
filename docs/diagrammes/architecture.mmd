@@ -1,0 +1,15 @@
+flowchart TD
+ UI[Interface : question et photo] -->|identité, question, image| API[API : authentification et validation]
+ API -->|requête et groupes autorisés| ORCH[Orchestration : plan et états]
+ ORCH -->|image sans secret| VLM[Modèle vision-langage]
+ VLM -->|description et incertitude| ORCH
+ ORCH -->|requête avec filtre de groupes| RAG[Recherche documentaire]
+ RAG -->|passages, figures, versions, pages| ORCH
+ STORE[(Stockage : documents, index, métadonnées)] --> RAG
+ ORCH -->|équipement autorisé| MCP[Outil MCP : historique et tickets]
+ MCP -->|historique fictif ou résultat contrôlé| ORCH
+ ORCH --> CIT[Validation des citations]
+ CIT -->|réponse sourcée ou demande de précision| UI
+ ORCH --> PRE[Prévisualisation du ticket]
+ PRE -->|approbation liée au contenu| HUMAN[Technicien]
+ HUMAN -->|accord explicite et droits revérifiés| MCP

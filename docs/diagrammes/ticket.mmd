@@ -1,0 +1,12 @@
+sequenceDiagram
+ participant U as Technicien
+ participant A as Orchestrateur
+ participant M as MCP
+ U->>A: Demande documentaire
+ A->>U: Brouillon du ticket et citations
+ U->>A: Approbation du contenu exact
+ A->>A: Vérifier identité, groupe, hash du brouillon
+ A->>M: create_ticket(draft, approval, idempotency_key)
+ M->>M: Vérifier droits, approbation et absence de doublon
+ M-->>A: Identifiant ou résultat déjà enregistré
+ A-->>U: Statut confirmé, sans nouvel appel automatique

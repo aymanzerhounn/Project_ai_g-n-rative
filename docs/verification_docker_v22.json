@@ -1,0 +1,11 @@
+{
+  "verified_at_utc": "2026-11-01T15:41:47.804442+00:00",
+  "pdf_count": 30,
+  "chunks_count": 90,
+  "all_files_match": true,
+  "volume": "corpus_rag_v22_data",
+  "url": "http://127.0.0.1:8080/",
+  "persistence_after_container_recreation": true,
+  "reimport_during_persistence_test": false,
+  "cleanup_status": "blocked_by_automatic_policy"
+}
