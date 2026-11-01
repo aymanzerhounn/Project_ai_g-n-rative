@@ -255,7 +255,7 @@ build_pdf(report,NAME,pages,report=True)
 (OUT/(NAME+'_LienGitHub.txt')).write_text('DÉPÔT GITHUB NON CRÉÉ - URL À FOURNIR AVANT REMISE\n',encoding='utf-8')
 README='''# MaintiDoc - CHMITI-HADDAOUI-ZERHOUN
 
-**Version de préparation : ne pas déposer avant validation humaine et ajout du lien GitHub.**
+**Version de préparation : ne pas déposer avant validation humaine et publication du d?p?t GitHub.**
 
 Équipe : Mehdi Chmiti, Ismail Haddaoui, Ayman Zerhoun.
 Objectif : assistant documentaire multimodal pour les techniciens d’un parc

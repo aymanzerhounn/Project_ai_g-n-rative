@@ -116,7 +116,7 @@ def report_pages(P,H,T,D,W,C):
   P('Les textes et schémas sont des productions synthétiques originales. Microsoft et Mozilla servent de sources techniques de travail pour les fiches reprises. Aucun manuel complet, logo ou photographie propriétaire n’est redistribué. Le parc, ses règles locales et ses identifiants ne correspondent pas à une installation réelle.'))
  page('2. Corpus : contrôle et usage de l’IA',
   H('Admission : un contrôle humain reste indispensable'),
-  P('L’assistant a contrôlé la structure, les références internes, la pagination et les éléments de test. Ces contrôles ne remplacent pas la relecture de l’équipe. Au moment de cette préparation, les 36 champs verifie_par sont vides et le dépôt GitHub n’est pas créé. Les documents restent candidats, exclus de l’index opérationnel jusqu’à validation. Avant remise : vérifier chaque contenu, renseigner un prénom réel et les corrections effectives, puis valider les droits.'),
+  P('L’assistant a contrôlé la structure, les références internes, la pagination et les éléments de test. Ces contrôles ne remplacent pas la relecture de l’équipe. Les 36 champs verifie_par sont encore vides. Le dépôt GitHub est créé, mais la publication du dossier depuis ce poste a été refusée faute de droits d’écriture. Les documents restent candidats, exclus de l’index opérationnel jusqu’à validation. Avant remise : vérifier chaque contenu, renseigner un prénom réel et les corrections effectives, puis valider les droits.'),
   H('Traçabilité et conditions de réutilisation'),
   P('inventaire.csv est encodé en UTF-8, séparé par des virgules, avec les 20 colonnes prescrites. Un fichier correspond à une ligne et porte son document_id en minuscules. prompts_corpus.md distingue les demandes utilisateur conservées, les instructions de révision et la nouvelle génération. sources_travail.csv conserve les URL et langues des références. licence=synthetique décrit le document produit ; ce champ n’attribue aucune licence libre aux publications des éditeurs.'),
   H('Analyse critique de l’assistance IA'),
@@ -239,12 +239,12 @@ def report_pages(P,H,T,D,W,C):
   H('Ce qui est produit et contrôlé'),
   P('Le rapport compte 14 pages hors annexes. Le dossier contient 36 PDF de trois pages, un inventaire à 20 colonnes, les prompts disponibles, les sources de travail et les trois diagrammes Mermaid dans le dépôt local. Les scans sont sans texte sélectionnable. Les deux versions contradictoires et l’injection sont identifiées. Les noms des fichiers correspondent aux identifiants de l’inventaire.'),
   H('Ce qui empêche encore une remise conforme'),
-  P('Le dépôt GitHub n’existe pas encore : le fichier de lien contient un message explicite, pas une URL inventée. La relecture humaine et la validation des droits ne sont pas faites : verifie_par reste vide. Le ZIP est donc une version de préparation. L’équipe doit compléter ces points avant de déposer ; un contrôle logiciel seul ne transforme pas un candidat en document validé.'),
+  P('Le dépôt de l’équipe est créé : github.com/aymanzerhounn/Project_ai_g-n-rative. Son URL réelle figure dans le fichier de lien. Le push depuis ce poste a été refusé : le compte Git local mccrking n’a pas les droits d’écriture. Le contenu reste donc à publier avec un compte autorisé et l’accès de l’enseignante à tester. La relecture humaine et la validation des droits des documents restent à faire : verifie_par est vide. Le ZIP demeure une version de préparation ; aucun contrôle logiciel ne remplace cette validation.'),
   H('Dernière vérification par l’équipe'),
   T(['Point à terminer','Action requise'],[
    ('Documents et licences','Relire les 36 documents, vérifier les sources, renseigner le relecteur et les corrections réelles'),
    ('Prompts','Confirmer la trace disponible ; conserver la limite historique au lieu d’inventer des instructions'),
-   ('GitHub','Créer le dépôt, publier la structure et tester l’accès depuis un compte extérieur'),
+   ('GitHub','Donner les droits au compte de publication ou utiliser un compte autorisé, pousser la structure puis tester l’accès enseignant'),
    ('Rapport et README','Confirmer les rôles et les ressources ; actualiser les paragraphes de statut après réalisation'),
    ('ZIP final','Vérifier le nom L1_MaintiDoc_CHMITI-HADDAOUI-ZERHOUN.zip et ses quatre éléments racine')],[110,W-110]),
   H('Documents de référence'),
