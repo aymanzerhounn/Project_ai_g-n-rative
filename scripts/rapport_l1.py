@@ -116,7 +116,7 @@ def report_pages(P,H,T,D,W,C):
   P('Les textes et schémas sont des productions synthétiques originales. Microsoft et Mozilla servent de sources techniques de travail pour les fiches reprises. Aucun manuel complet, logo ou photographie propriétaire n’est redistribué. Le parc, ses règles locales et ses identifiants ne correspondent pas à une installation réelle.'))
  page('2. Corpus : contrôle et usage de l’IA',
   H('Admission : un contrôle humain reste indispensable'),
-  P('L’assistant a contrôlé la structure, les références internes, la pagination et les éléments de test. Ces contrôles ne remplacent pas la relecture de l’équipe. Les 36 champs verifie_par sont encore vides. Le dossier est publié dans le dépôt GitHub privé de mccrking ; l’accès de l’enseignante reste à accorder. Les documents restent candidats, exclus de l’index opérationnel jusqu’à validation. Avant remise : vérifier chaque contenu, renseigner un prénom réel et les corrections effectives, puis valider les droits.'),
+  P('L’assistant a contrôlé la structure, les références internes, la pagination et les éléments de test. Ces contrôles ne remplacent pas la relecture de l’équipe. Les 36 champs verifie_par sont encore vides. Le dossier est publié dans le dépôt GitHub public de mccrking ; son accès sans connexion a été vérifié. Les documents restent candidats, exclus de l’index opérationnel jusqu’à validation. Avant remise : vérifier chaque contenu, renseigner un prénom réel et les corrections effectives, puis valider les droits.'),
   H('Traçabilité et conditions de réutilisation'),
   P('inventaire.csv est encodé en UTF-8, séparé par des virgules, avec les 20 colonnes prescrites. Un fichier correspond à une ligne et porte son document_id en minuscules. prompts_corpus.md distingue les demandes utilisateur conservées, les instructions de révision et la nouvelle génération. sources_travail.csv conserve les URL et langues des références. licence=synthetique décrit le document produit ; ce champ n’attribue aucune licence libre aux publications des éditeurs.'),
   H('Analyse critique de l’assistance IA'),
@@ -239,12 +239,12 @@ def report_pages(P,H,T,D,W,C):
   H('Ce qui est produit et contrôlé'),
   P('Le rapport compte 14 pages hors annexes. Le dossier contient 36 PDF de trois pages, un inventaire à 20 colonnes, les prompts disponibles, les sources de travail et les trois diagrammes Mermaid dans le dépôt local. Les scans sont sans texte sélectionnable. Les deux versions contradictoires et l’injection sont identifiées. Les noms des fichiers correspondent aux identifiants de l’inventaire.'),
   H('Ce qui empêche encore une remise conforme'),
-  P('Le dossier est publié dans le dépôt privé github.com/mccrking/maintidoc-l1-chmiti-haddaoui-zerhoun. Son URL réelle figure dans le fichier de lien. L’équipe doit accorder l’accès à l’enseignante puis le tester depuis un compte autorisé extérieur à l’équipe. La relecture humaine et la validation des droits des documents restent à faire : verifie_par est vide. Le ZIP demeure une version de préparation ; aucun contrôle logiciel ne remplace cette validation.'),
+  P('Le dossier est publié dans le dépôt public github.com/mccrking/maintidoc-l1-chmiti-haddaoui-zerhoun. Son URL réelle figure dans le fichier de lien. L’accès sans authentification a été vérifié ; l’équipe doit contrôler à nouveau ce lien au moment du dépôt. La relecture humaine et la validation des droits des documents restent à faire : verifie_par est vide. Le ZIP demeure une version de préparation ; aucun contrôle logiciel ne remplace cette validation.'),
   H('Dernière vérification par l’équipe'),
   T(['Point à terminer','Action requise'],[
    ('Documents et licences','Relire les 36 documents, vérifier les sources, renseigner le relecteur et les corrections réelles'),
    ('Prompts','Confirmer la trace disponible ; conserver la limite historique au lieu d’inventer des instructions'),
-   ('GitHub','Inviter l’enseignante sur le dépôt privé et tester son accès après acceptation'),
+   ('GitHub','Accès public vérifié ; contrôler à nouveau le lien au moment du dépôt'),
    ('Rapport et README','Confirmer les rôles et les ressources ; actualiser les paragraphes de statut après réalisation'),
    ('ZIP final','Vérifier le nom L1_MaintiDoc_CHMITI-HADDAOUI-ZERHOUN.zip et ses quatre éléments racine')],[110,W-110]),
   H('Documents de référence'),

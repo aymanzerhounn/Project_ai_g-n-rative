@@ -21,7 +21,6 @@
   },
   "human_validated": 0,
   "blockers": [
-    "Dépôt privé : accès de l’enseignante à accorder et à tester avec son compte",
     "Relecture humaine et droits à valider pour 36 documents ; verifie_par non renseigné"
   ],
   "sha256": {

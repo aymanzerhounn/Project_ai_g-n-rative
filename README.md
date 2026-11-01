@@ -1,6 +1,6 @@
 # MaintiDoc - CHMITI-HADDAOUI-ZERHOUN
 
-**Version de préparation : ne pas déposer avant validation humaine et accès de l’enseignante au dépôt privé.**
+**Version de préparation : ne pas déposer avant validation humaine du corpus.**
 
 Équipe : Mehdi Chmiti, Ismail Haddaoui, Ayman Zerhoun.
 Objectif : assistant documentaire multimodal pour les techniciens d’un parc
@@ -26,5 +26,5 @@ La trace historique initiale des prompts est partielle et explicitée.
 Deux scans synthétiques, deux versions contradictoires et une injection de test
 sont signalés. Aucun OCR, modèle de vision, MCP ou RAG n’est annoncé comme exécuté.
 Dépôt : https://github.com/mccrking/maintidoc-l1-chmiti-haddaoui-zerhoun
-Le contenu est publié dans ce dépôt privé.
-Accorder l’accès à l’enseignante et le tester avant la remise.
+Le contenu est publié dans ce dépôt public.
+L’accès sans connexion a été vérifié ; contrôler le lien avant la remise.
