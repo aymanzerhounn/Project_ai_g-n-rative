@@ -253,35 +253,7 @@ pages=report_pages(P,head,table,Diagram,WIDTH,COUNTS)
 assert len(pages)==14
 build_pdf(report,NAME,pages,report=True)
 (OUT/(NAME+'_LienGitHub.txt')).write_text('DÉPÔT GITHUB NON CRÉÉ - URL À FOURNIR AVANT REMISE\n',encoding='utf-8')
-README='''# MaintiDoc - CHMITI-HADDAOUI-ZERHOUN
-
-**Version de préparation : ne pas déposer avant validation humaine et publication du d?p?t GitHub.**
-
-Équipe : Mehdi Chmiti, Ismail Haddaoui, Ayman Zerhoun.
-Objectif : assistant documentaire multimodal pour les techniciens d’un parc
-de postes Windows et de périphériques informatiques ; réponses avec citations
-et préparation de tickets soumis à approbation humaine.
-
-## Contenu du ZIP
-- `'''+NAME+'''_Rapport.pdf` : rapport L1, 14 pages hors annexes.
-- `'''+NAME+'''_LienGitHub.txt` : emplacement du lien du dépôt à créer.
-- `README.md` : ce document.
-- `'''+NAME+'''_Corpus/` : 36 PDF, inventaire, prompts et sources de travail.
-
-## Structure du dépôt préparé localement
-`README.md`, `.gitignore`, `docs/diagrammes/`, `corpus/inventaire.csv`,
-`corpus/prompts_corpus.md`, `corpus/documents/famille_1/`,
-`corpus/documents/famille_2/`, `corpus/images/`.
-
-## État et limites
-Le stockage Docker du corpus antérieur V2.2 fonctionne ; la nouvelle proposition
-L1 de 36 documents est distincte et n’est pas encore admise dans l’index.
-Les relecteurs doivent remplir `verifie_par`, les corrections et valider les droits.
-La trace historique initiale des prompts est partielle et explicitée.
-Deux scans synthétiques, deux versions contradictoires et une injection de test
-sont signalés. Aucun OCR, modèle de vision, MCP ou RAG n’est annoncé comme exécuté.
-Le lien GitHub reste à fournir et à tester depuis un compte extérieur.
-'''
+README='# MaintiDoc\n\nProjet du module IA générative multimodale - EMSI 2026.\n\n## Équipe\n\n- Mehdi Chmiti\n- Ismail Haddaoui\n- Ayman Zerhoun\n\n## Objectif\n\nAider les techniciens à retrouver une procédure, comprendre un problème et préparer un ticket à partir de documents et d’images. Les réponses doivent citer leurs sources et la création d’un ticket nécessite l’accord du technicien.\n\nDeux familles sont étudiées : les postes Windows et les périphériques informatiques.\n\n## Livrable 1\n\n- `L1_MaintiDoc_CHMITI-HADDAOUI-ZERHOUN_Rapport.pdf` : cadrage, architecture, flux de données, risques et planning, en 14 pages.\n- `L1_MaintiDoc_CHMITI-HADDAOUI-ZERHOUN_LienGitHub.txt` : lien du dépôt.\n- `README.md` : présentation du projet.\n- `L1_MaintiDoc_CHMITI-HADDAOUI-ZERHOUN_Corpus/` : documents, inventaire et prompts utilisés.\n\nLe corpus comprend 36 documents : procédures, manuels, codes locaux et fiche de sécurité. Il contient aussi deux scans synthétiques pour l’OCR, deux versions contradictoires et un document piégé pour les tests.\n\n## Organisation du dépôt\n\n```text\nmaintidoc/\n├── README.md\n├── .gitignore\n├── corpus/\n│   ├── inventaire.csv\n│   ├── prompts_corpus.md\n│   ├── sources_travail.csv\n│   ├── documents/\n│   │   ├── famille_1/\n│   │   └── famille_2/\n│   └── images/\n├── docs/\n│   ├── diagrammes/\n│   └── L1_MaintiDoc_CHMITI-HADDAOUI-ZERHOUN_Rapport.pdf\n└── scripts/\n```\n\nL’inventaire décrit chaque document, sa provenance, sa version et ses groupes d’accès. Le suivi des relectures se trouve dans `corpus/STATUT_VALIDATION.md` et dans la colonne `verifie_par` de l’inventaire.\n\nDépôt : https://github.com/mccrking/maintidoc-l1-chmiti-haddaoui-zerhoun\n'
 (OUT/'README.md').write_text(README,encoding='utf-8')
 (REPO/'README.md').write_text(README,encoding='utf-8')
 (REPO/'.gitignore').write_text('.env\n.env.*\n!.env.example\n*.pem\n*.key\n__pycache__/\n.venv/\n*.log\n.DS_Store\n',encoding='utf-8')

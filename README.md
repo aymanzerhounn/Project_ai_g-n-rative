@@ -1,30 +1,48 @@
-# MaintiDoc - CHMITI-HADDAOUI-ZERHOUN
+# MaintiDoc
 
-**Version de préparation : ne pas déposer avant validation humaine du corpus.**
+Projet du module IA générative multimodale - EMSI 2026.
 
-Équipe : Mehdi Chmiti, Ismail Haddaoui, Ayman Zerhoun.
-Objectif : assistant documentaire multimodal pour les techniciens d’un parc
-de postes Windows et de périphériques informatiques ; réponses avec citations
-et préparation de tickets soumis à approbation humaine.
+## Équipe
 
-## Contenu du ZIP
-- `L1_MaintiDoc_CHMITI-HADDAOUI-ZERHOUN_Rapport.pdf` : rapport L1, 14 pages hors annexes.
-- `L1_MaintiDoc_CHMITI-HADDAOUI-ZERHOUN_LienGitHub.txt` : URL du dépôt de l’équipe.
-- `README.md` : ce document.
-- `L1_MaintiDoc_CHMITI-HADDAOUI-ZERHOUN_Corpus/` : 36 PDF, inventaire, prompts et sources de travail.
+- Mehdi Chmiti
+- Ismail Haddaoui
+- Ayman Zerhoun
 
-## Structure du dépôt préparé localement
-`README.md`, `.gitignore`, `docs/diagrammes/`, `corpus/inventaire.csv`,
-`corpus/prompts_corpus.md`, `corpus/documents/famille_1/`,
-`corpus/documents/famille_2/`, `corpus/images/`.
+## Objectif
 
-## État et limites
-Le stockage Docker du corpus antérieur V2.2 fonctionne ; la nouvelle proposition
-L1 de 36 documents est distincte et n’est pas encore admise dans l’index.
-Les relecteurs doivent remplir `verifie_par`, les corrections et valider les droits.
-La trace historique initiale des prompts est partielle et explicitée.
-Deux scans synthétiques, deux versions contradictoires et une injection de test
-sont signalés. Aucun OCR, modèle de vision, MCP ou RAG n’est annoncé comme exécuté.
+Aider les techniciens à retrouver une procédure, comprendre un problème et préparer un ticket à partir de documents et d’images. Les réponses doivent citer leurs sources et la création d’un ticket nécessite l’accord du technicien.
+
+Deux familles sont étudiées : les postes Windows et les périphériques informatiques.
+
+## Livrable 1
+
+- `L1_MaintiDoc_CHMITI-HADDAOUI-ZERHOUN_Rapport.pdf` : cadrage, architecture, flux de données, risques et planning, en 14 pages.
+- `L1_MaintiDoc_CHMITI-HADDAOUI-ZERHOUN_LienGitHub.txt` : lien du dépôt.
+- `README.md` : présentation du projet.
+- `L1_MaintiDoc_CHMITI-HADDAOUI-ZERHOUN_Corpus/` : documents, inventaire et prompts utilisés.
+
+Le corpus comprend 36 documents : procédures, manuels, codes locaux et fiche de sécurité. Il contient aussi deux scans synthétiques pour l’OCR, deux versions contradictoires et un document piégé pour les tests.
+
+## Organisation du dépôt
+
+```text
+maintidoc/
+├── README.md
+├── .gitignore
+├── corpus/
+│   ├── inventaire.csv
+│   ├── prompts_corpus.md
+│   ├── sources_travail.csv
+│   ├── documents/
+│   │   ├── famille_1/
+│   │   └── famille_2/
+│   └── images/
+├── docs/
+│   ├── diagrammes/
+│   └── L1_MaintiDoc_CHMITI-HADDAOUI-ZERHOUN_Rapport.pdf
+└── scripts/
+```
+
+L’inventaire décrit chaque document, sa provenance, sa version et ses groupes d’accès. Le suivi des relectures se trouve dans `corpus/STATUT_VALIDATION.md` et dans la colonne `verifie_par` de l’inventaire.
+
 Dépôt : https://github.com/mccrking/maintidoc-l1-chmiti-haddaoui-zerhoun
-Le contenu est publié dans ce dépôt public.
-L’accès sans connexion a été vérifié ; contrôler le lien avant la remise.
