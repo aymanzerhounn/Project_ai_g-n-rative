@@ -1,6 +1,6 @@
 # MaintiDoc - CHMITI-HADDAOUI-ZERHOUN
 
-**Version de préparation : ne pas déposer avant validation humaine et publication du dépôt GitHub.**
+**Version de préparation : ne pas déposer avant validation humaine et accès de l’enseignante au dépôt privé.**
 
 Équipe : Mehdi Chmiti, Ismail Haddaoui, Ayman Zerhoun.
 Objectif : assistant documentaire multimodal pour les techniciens d’un parc
@@ -25,6 +25,6 @@ Les relecteurs doivent remplir `verifie_par`, les corrections et valider les dro
 La trace historique initiale des prompts est partielle et explicitée.
 Deux scans synthétiques, deux versions contradictoires et une injection de test
 sont signalés. Aucun OCR, modèle de vision, MCP ou RAG n’est annoncé comme exécuté.
-Dépôt : https://github.com/aymanzerhounn/Project_ai_g-n-rative
-Le push a été refusé pour le compte local mccrking (droits d’écriture absents).
-Publier le contenu avec un compte autorisé et tester l’accès enseignant.
+Dépôt : https://github.com/mccrking/maintidoc-l1-chmiti-haddaoui-zerhoun
+Le contenu est publié dans ce dépôt privé.
+Accorder l’accès à l’enseignante et le tester avant la remise.
